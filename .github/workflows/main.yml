@@ -50,7 +50,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: cd app && ./gradlew build sonar --info
+        run: ./gradlew build sonar --info
 
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
