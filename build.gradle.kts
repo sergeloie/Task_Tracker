@@ -4,7 +4,7 @@ plugins {
 	jacoco
 	alias(libs.plugins.freefairLombokPLugin)
 	alias(libs.plugins.benManesVersionsPlugin)
-	alias(libs.plugins.johnrengelmanShadowPlugin)
+//	alias(libs.plugins.johnrengelmanShadowPlugin)
 	alias(libs.plugins.patrikerdesUseLatestVersionsPlugin)
 	alias(libs.plugins.littlerobotsVersionCatalogUpdatePlugin)
 	alias(libs.plugins.springFrameworkPlugin)
