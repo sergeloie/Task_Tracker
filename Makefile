@@ -17,7 +17,7 @@ check:
 	@./gradlew check
 
 install:
-	@./gradlew installShadowDist
+	@./gradlew installDist
 	
 
 .PHONY: build
