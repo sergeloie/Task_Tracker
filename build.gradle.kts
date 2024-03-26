@@ -1,5 +1,6 @@
 plugins {
 	application
+	checkstyle
 	alias(libs.plugins.freefairLombokPLugin)
 	alias(libs.plugins.benManesVersionsPlugin)
 	alias(libs.plugins.johnrengelmanShadowPlugin)
