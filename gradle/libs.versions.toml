@@ -44,3 +44,4 @@ littlerobotsVersionCatalogUpdatePlugin = "nl.littlerobots.version-catalog-update
 patrikerdesUseLatestVersionsPlugin = "se.patrikerdes.use-latest-versions:0.2.18"
 springDependencyManagementPlugin = "io.spring.dependency-management:1.1.4"
 springFrameworkPlugin = { id = "org.springframework.boot", version.ref = "spring-version" }
+sonarCubePlugin = "org.sonarqube:4.4.1.3373"

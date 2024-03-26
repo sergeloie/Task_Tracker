@@ -1,0 +1,7 @@
+docker:
+  image: anseranser/rultor-jdk21
+merge:
+ script:
+   make check
+   
+

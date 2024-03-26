@@ -1,6 +1,7 @@
 plugins {
 	application
 	checkstyle
+	jacoco
 	alias(libs.plugins.freefairLombokPLugin)
 	alias(libs.plugins.benManesVersionsPlugin)
 	alias(libs.plugins.johnrengelmanShadowPlugin)
@@ -8,6 +9,7 @@ plugins {
 	alias(libs.plugins.littlerobotsVersionCatalogUpdatePlugin)
 	alias(libs.plugins.springFrameworkPlugin)
 	alias(libs.plugins.springDependencyManagementPlugin)
+	alias(libs.plugins.sonarCubePlugin)
 }
 
 group = "hexlet.code"
@@ -42,4 +44,12 @@ dependencies {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+sonar {
+	properties {
+		property("sonar.projectKey", "sergeloie_java-project-99")
+		property("sonar.organization", "sergeloie")
+		property("sonar.host.url", "https://sonarcloud.io")
+	}
 }
