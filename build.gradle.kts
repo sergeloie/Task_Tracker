@@ -1,14 +1,19 @@
 plugins {
-	java
-	id("org.springframework.boot") version "3.2.4"
-	id("io.spring.dependency-management") version "1.1.4"
+	application
+	alias(libs.plugins.freefairLombokPLugin)
+	alias(libs.plugins.benManesVersionsPlugin)
+	alias(libs.plugins.johnrengelmanShadowPlugin)
+	alias(libs.plugins.patrikerdesUseLatestVersionsPlugin)
+	alias(libs.plugins.littlerobotsVersionCatalogUpdatePlugin)
+	alias(libs.plugins.springFrameworkPlugin)
+	alias(libs.plugins.springDependencyManagementPlugin)
 }
 
 group = "hexlet.code"
 version = "0.0.1-SNAPSHOT"
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_20
 }
 
 configurations {
@@ -22,13 +27,16 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	compileOnly("org.projectlombok:lombok")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	runtimeOnly("com.h2database:h2")
-	runtimeOnly("org.postgresql:postgresql")
-	annotationProcessor("org.projectlombok:lombok")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	runtimeOnly(libs.h2)
+	runtimeOnly(libs.postgresql)
+
+	compileOnly(libs.lombok)
+	annotationProcessor(libs.lombok)
+	testImplementation(libs.bundles.junitBundle)
+	testImplementation(platform(libs.junitBom))
+
+	implementation(libs.bundles.springStudy)
 }
 
 tasks.withType<Test> {

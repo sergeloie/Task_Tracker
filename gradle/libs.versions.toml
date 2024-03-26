@@ -1,0 +1,46 @@
+[versions]
+h2-version = "2.2.224"
+junit-plarform-version = "1.10.2"
+junit-version = "5.10.2"
+lombok-version = "1.18.32"
+postgresql-version = "42.7.3"
+spring-version = "3.2.4"
+
+[libraries]
+h2 = { module = "com.h2database:h2", version.ref = "h2-version" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-plarform-version" }
+junitBom = { module = "org.junit:junit-bom", version.ref = "junit-version" }
+jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-version" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok-version" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql-version" }
+spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "spring-version" }
+spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring-version" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-version" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-version" }
+
+[bundles]
+junitBundle = [
+    "junit-platform-launcher",
+    "jupiter",
+]
+springBundle = [
+    "spring-boot-devtools",
+    "spring-boot-starter",
+    "spring-boot-starter-test",
+    "spring-boot-starter-web",
+]
+springStudy = [
+    "spring-boot-devtools",
+    "spring-boot-starter",
+    "spring-boot-starter-test",
+    "spring-boot-starter-web",
+]
+
+[plugins]
+benManesVersionsPlugin = "com.github.ben-manes.versions:0.51.0"
+freefairLombokPLugin = "io.freefair.lombok:8.6"
+johnrengelmanShadowPlugin = "com.github.johnrengelman.shadow:8.1.1"
+littlerobotsVersionCatalogUpdatePlugin = "nl.littlerobots.version-catalog-update:0.8.4"
+patrikerdesUseLatestVersionsPlugin = "se.patrikerdes.use-latest-versions:0.2.18"
+springDependencyManagementPlugin = "io.spring.dependency-management:1.1.4"
+springFrameworkPlugin = { id = "org.springframework.boot", version.ref = "spring-version" }
