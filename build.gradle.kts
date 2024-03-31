@@ -17,6 +17,7 @@ version = "0.0.1-SNAPSHOT"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_20
+	targetCompatibility = JavaVersion.VERSION_20
 }
 
 configurations {
@@ -59,4 +60,8 @@ tasks.jacocoTestReport {
 		xml.required = true
 		html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
 	}
+}
+
+application {
+	mainClass.set("hexlet.code.AppApplication")
 }
