@@ -18,6 +18,6 @@ WORKDIR .
 
 COPY . .
 
-RUN gradle installDist
+RUN ./gradlew --no-daemon build
 
-CMD ./build/install/app/bin/app
+CMD java -jar build/libs/app-0.0.1-SNAPSHOT.jar
