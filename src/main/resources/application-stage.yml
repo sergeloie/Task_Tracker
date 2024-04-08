@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: "${JDBC_DATABASE_URL}"
+  config:
+    activate:
+      on-profile: stage
