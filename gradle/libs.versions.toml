@@ -5,6 +5,7 @@ junit-version = "5.10.2"
 lombok-version = "1.18.32"
 postgresql-version = "42.7.3"
 spring-version = "3.2.4"
+jakarta-version = "3.2.0-M2"
 
 [libraries]
 h2 = { module = "com.h2database:h2", version.ref = "h2-version" }
@@ -17,6 +18,7 @@ spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools
 spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring-version" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-version" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-version" }
+jakarta-persistence-api = {module = "jakarta.persistence:jakarta.persistence-api", version.ref = "jakarta-version"}
 
 [bundles]
 junitBundle = [
