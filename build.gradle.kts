@@ -41,6 +41,7 @@ dependencies {
 	testImplementation(platform(libs.junitBom))
 
 	implementation(libs.bundles.springStudy)
+	implementation(libs.jakarta.persistence.api)
 }
 
 tasks.withType<Test> {

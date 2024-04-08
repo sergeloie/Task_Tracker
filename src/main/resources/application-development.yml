@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: "jdbc:h2:mem:test"
+  config:
+    activate:
+      on-profile: development
