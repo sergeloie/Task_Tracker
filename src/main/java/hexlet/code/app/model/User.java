@@ -22,7 +22,7 @@ import java.time.LocalDate;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class User {
+public class User implements BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,9 +38,9 @@ public class User {
     @NotNull
     @Size(min = 3)
     private String password;
+
     @CreatedDate
     private LocalDate createdAt;
-
     private LocalDate updatedAt;
 
 }
