@@ -6,6 +6,8 @@ lombok-version = "1.18.32"
 postgresql-version = "42.7.3"
 spring-version = "3.2.4"
 jakarta-version = "3.1.0"
+mapstruct-version = "1.5.5.Final"
+nullable-version = "0.2.6"
 
 [libraries]
 h2 = { module = "com.h2database:h2", version.ref = "h2-version" }
@@ -21,6 +23,8 @@ spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-start
 spring-boot-starter-data-jpa = {module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-version"}
 spring-boot-starter-validation = {module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring-version"}
 jakarta-persistence-api = {module = "jakarta.persistence:jakarta.persistence-api", version.ref = "jakarta-version"}
+mapstruct = {module = "org.mapstruct:mapstruct", version.ref = "mapstruct-version"}
+jackson-databind-nullable = {module = "org.openapitools:jackson-databind-nullable", version.ref = "nullable-version"}
 
 [bundles]
 junitBundle = [

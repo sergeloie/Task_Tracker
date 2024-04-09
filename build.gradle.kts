@@ -42,6 +42,9 @@ dependencies {
 
 	implementation(libs.bundles.springStudy)
 	implementation(libs.jakarta.persistence.api)
+
+	implementation(libs.mapstruct)
+	implementation(libs.jackson.databind.nullable)
 }
 
 tasks.withType<Test> {
