@@ -22,8 +22,10 @@ spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-star
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-version" }
 spring-boot-starter-data-jpa = {module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-version"}
 spring-boot-starter-validation = {module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring-version"}
+spring-boot-starter-security = {module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring-version"}
 jakarta-persistence-api = {module = "jakarta.persistence:jakarta.persistence-api", version.ref = "jakarta-version"}
 mapstruct = {module = "org.mapstruct:mapstruct", version.ref = "mapstruct-version"}
+mapstruct-annotation-processor = {module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct-version"}
 jackson-databind-nullable = {module = "org.openapitools:jackson-databind-nullable", version.ref = "nullable-version"}
 
 [bundles]
@@ -44,6 +46,7 @@ springStudy = [
     "spring-boot-starter-web",
     "spring-boot-starter-data-jpa",
     "spring-boot-starter-validation",
+    "spring-boot-starter-security",
 ]
 
 [plugins]

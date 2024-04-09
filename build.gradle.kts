@@ -36,13 +36,15 @@ dependencies {
 	runtimeOnly(libs.postgresql)
 
 	compileOnly(libs.lombok)
+
 	annotationProcessor(libs.lombok)
+	annotationProcessor(libs.mapstruct.annotation.processor)
+
 	testImplementation(libs.bundles.junitBundle)
 	testImplementation(platform(libs.junitBom))
 
 	implementation(libs.bundles.springStudy)
 	implementation(libs.jakarta.persistence.api)
-
 	implementation(libs.mapstruct)
 	implementation(libs.jackson.databind.nullable)
 }
