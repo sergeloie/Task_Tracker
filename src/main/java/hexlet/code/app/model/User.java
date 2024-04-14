@@ -9,9 +9,12 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
@@ -22,6 +25,7 @@ import java.time.LocalDate;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
+
 public class User implements BaseEntity{
 
     @Id
@@ -37,10 +41,14 @@ public class User implements BaseEntity{
 
     @NotNull
     @Size(min = 3)
+    @ToString.Exclude
     private String password;
 
     @CreatedDate
+    @ToString.Exclude
     private LocalDate createdAt;
+    @LastModifiedDate
+    @ToString.Exclude
     private LocalDate updatedAt;
 
 }
