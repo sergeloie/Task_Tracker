@@ -42,11 +42,14 @@ dependencies {
 
 	testImplementation(libs.bundles.junitBundle)
 	testImplementation(platform(libs.junitBom))
+	testImplementation(libs.bundles.springTest)
 
 	implementation(libs.bundles.springStudy)
 	implementation(libs.jakarta.persistence.api)
 	implementation(libs.mapstruct)
 	implementation(libs.jackson.databind.nullable)
+	implementation(libs.datafaker)
+	implementation(libs.instancio)
 }
 
 tasks.withType<Test> {
