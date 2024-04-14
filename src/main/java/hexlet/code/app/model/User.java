@@ -25,7 +25,7 @@ import java.time.LocalDate;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-
+@ToString
 public class User implements BaseEntity{
 
     @Id
