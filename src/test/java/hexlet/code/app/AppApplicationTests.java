@@ -1,6 +1,5 @@
 package hexlet.code.app;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.app.controller.UserController;
 import hexlet.code.app.model.User;
