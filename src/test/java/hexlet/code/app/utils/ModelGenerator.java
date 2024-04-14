@@ -21,6 +21,7 @@ public class ModelGenerator {
     @PostConstruct
     private void init() {
         userModel = Instancio.of(User.class)
+                .ignore(Select.field(User::getId))
                 .supply(Select.field(User::getEmail), () -> faker.internet().emailAddress())
                 .toModel();
     }
