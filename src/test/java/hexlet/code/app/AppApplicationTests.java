@@ -90,7 +90,7 @@ class AppApplicationTests {
         mockMvc.perform(request)
                 .andExpect(status().isCreated());
 
-        User user = userRepository.findByEmail(data.getEmail());
+        User user = userRepository.findByEmail(data.getEmail()).get();
 
         assertNotNull(user);
         assertThat(user.getFirstName()).isEqualTo(data.getFirstName());
