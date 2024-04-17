@@ -19,7 +19,7 @@ public class AuthenticationController {
     private JwtUtils jwtUtils;
     private AuthenticationManager authenticationManager;
 
-    @PostMapping("/login")
+    @PostMapping(path = "/login")
     public String create(@RequestBody AuthRequest authRequest) {
         var authentication = new UsernamePasswordAuthenticationToken(
                 authRequest.getUsername(), authRequest.getPassword());
