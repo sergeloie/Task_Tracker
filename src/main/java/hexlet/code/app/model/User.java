@@ -20,8 +20,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -45,7 +45,7 @@ public class User implements BaseEntity, UserDetails {
     @NotNull
     @Size(min = 3)
     @ToString.Exclude
-    private String password;
+    private String passwordDigest;
 
     @CreatedDate
     @ToString.Exclude
@@ -56,7 +56,12 @@ public class User implements BaseEntity, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return new ArrayList<GrantedAuthority>();
+    }
+
+    @Override
+    public String getPassword() {
+        return passwordDigest;
     }
 
     @Override

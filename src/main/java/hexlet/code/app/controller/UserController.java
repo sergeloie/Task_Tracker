@@ -51,7 +51,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserDTO create(@Valid @RequestBody UserCreateDTO userCreateDTO) {
         User user = userMapper.map(userCreateDTO);
-        user.setPassword(passwordEncoder.encode(userCreateDTO.getPassword()));
+        user.setPasswordDigest(passwordEncoder.encode(userCreateDTO.getPassword()));
         userRepository.save(user);
         return userMapper.map(user);
     }
@@ -63,7 +63,7 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("User with id %d not found", id)));
         userMapper.update(userUpdateDTO, user);
         if (userUpdateDTO.getPassword() != null) {
-            user.setPassword(passwordEncoder.encode(userUpdateDTO.getPassword()));
+            user.setPasswordDigest(passwordEncoder.encode(userUpdateDTO.getPassword()));
         }
         userRepository.save(user);
         return userMapper.map(user);

@@ -18,7 +18,7 @@ public class DataInitializer implements ApplicationRunner {
         String password = "qwerty";
         User user = new User();
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPasswordDigest(password);
         userRepository.save(user);
     }
 }
