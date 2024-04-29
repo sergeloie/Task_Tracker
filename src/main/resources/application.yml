@@ -6,3 +6,10 @@ spring:
   jpa:
     show-sql: true
     generate-ddl: true
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        web:
+          cors: DEBUG
