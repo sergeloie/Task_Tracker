@@ -17,13 +17,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 
-@AllArgsConstructor(onConstructor_ = @__(@Autowired))
-@NoArgsConstructor
+//@AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public abstract class UserMapper {
 
+    @Autowired
     private PasswordEncoder encoder;
 
     @Mapping(target = "passwordDigest", source = "password")
+    @Mapping(target = "email", source = "username")
     public abstract User map(UserCreateDTO userCreateDTO);
 
     @Mapping(target = "username", source = "email")

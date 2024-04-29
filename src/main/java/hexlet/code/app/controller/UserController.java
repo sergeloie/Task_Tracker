@@ -9,6 +9,7 @@ import hexlet.code.app.model.User;
 import hexlet.code.app.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -51,8 +52,12 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserDTO create(@Valid @RequestBody UserCreateDTO userCreateDTO) {
         User user = userMapper.map(userCreateDTO);
-        user.setPasswordDigest(passwordEncoder.encode(userCreateDTO.getPassword()));
-        userRepository.save(user);
+        String login = user.getEmail();
+        try {
+            userRepository.save(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException(String.format("Username with login '%s' already exists", login));
+        }
         return userMapper.map(user);
     }
 

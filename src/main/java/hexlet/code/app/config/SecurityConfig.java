@@ -40,7 +40,6 @@ public class SecurityConfig {
                 .oauth2ResourceServer(rs -> rs.jwt(jwt -> jwt.decoder(jwtDecoder)))
                 .httpBasic(Customizer.withDefaults())
                 .build();
-
     }
 
     @Bean
