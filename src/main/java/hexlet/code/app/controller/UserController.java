@@ -7,6 +7,7 @@ import hexlet.code.app.exception.ResourceNotFoundException;
 import hexlet.code.app.mapper.UserMapper;
 import hexlet.code.app.model.User;
 import hexlet.code.app.repository.UserRepository;
+import hexlet.code.app.utils.UserUtils;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -34,6 +35,7 @@ public class UserController {
     private UserMapper userMapper;
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
+    private UserUtils userUtils;
 
     @GetMapping
     public List<UserDTO> index() {
@@ -62,7 +64,8 @@ public class UserController {
         return userMapper.map(user);
     }
 
-    @PreAuthorize("#id == authentication.principal.id")
+//    @PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("@userUtils.isUserTheOwner(#id)")
     @PutMapping(path = "/{id}")
     public UserDTO update(@Valid @RequestBody UserUpdateDTO userUpdateDTO, @PathVariable long id) {
         User user = userRepository.findById(id)
@@ -76,7 +79,7 @@ public class UserController {
     }
 //    @PreAuthorize("#id == authentication.principal.id")
     @DeleteMapping(path = "/{id}")
-    @PreAuthorize("#name == authentication.principal.username")
+    @PreAuthorize("@userUtils.isUserTheOwner(#id)")
     public void delete(@PathVariable long id) {
         userRepository.deleteById(id);
     }
