@@ -18,8 +18,8 @@ WORKDIR .
 
 COPY . .
 
-ENV ADMIN_LOGIN = $ADMIN_LOGIN
-ENV ADMIN_PASSWORD = $ADMIN_PASSWORD
+ARG ADMIN_LOGIN
+ARG ADMIN_PASSWORD
 RUN ./gradlew --no-daemon build
 
 CMD java -jar build/libs/app-0.0.1-SNAPSHOT.jar
