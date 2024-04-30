@@ -5,6 +5,9 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ADMIN_LOGIN: ${{ADMIN_LOGIN}}
+      ADMIN_PASSWORD: ${{ADMIN_PASSWORD}}
 
     steps:
       - uses: actions/checkout@v3
