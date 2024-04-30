@@ -17,8 +17,8 @@ public class DataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        String email = "hexlet@example.com";
-        String password = "qwerty";
+        String email = System.getenv("ADMIN_LOGIN");
+        String password = System.getenv("ADMIN_PASSWORD");
         User user = new User();
         user.setEmail(email);
         user.setPasswordDigest(passwordEncoder.encode(password));
