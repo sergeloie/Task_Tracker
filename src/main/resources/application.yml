@@ -6,6 +6,7 @@ spring:
   jpa:
     show-sql: true
     generate-ddl: true
+
 logging:
   level:
     org:
