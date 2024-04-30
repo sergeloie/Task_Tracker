@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,7 +62,7 @@ public class UserController {
         return userMapper.map(user);
     }
 
-//    @PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("#id == authentication.principal.id")
     @PutMapping(path = "/{id}")
     public UserDTO update(@Valid @RequestBody UserUpdateDTO userUpdateDTO, @PathVariable long id) {
         User user = userRepository.findById(id)
@@ -75,6 +76,7 @@ public class UserController {
     }
 //    @PreAuthorize("#id == authentication.principal.id")
     @DeleteMapping(path = "/{id}")
+    @PreAuthorize("#name == authentication.principal.username")
     public void delete(@PathVariable long id) {
         userRepository.deleteById(id);
     }
