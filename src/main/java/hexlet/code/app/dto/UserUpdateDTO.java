@@ -11,7 +11,7 @@ public class UserUpdateDTO {
     private String firstName;
     private String lastName;
     @Email
-    private String email;
+    private String username;
     @Size(min = 3)
     private String password;
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -52,6 +53,9 @@ class AppApplicationTests {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private JwtRequestPostProcessor token;
 
     private User testUser;
@@ -60,6 +64,7 @@ class AppApplicationTests {
     public void setUp() {
         token = jwt().jwt(builder -> builder.subject("hexlet@example.com"));
         testUser = Instancio.of(modelGenerator.getUserModel()).create();
+        testUser.setPasswordDigest(passwordEncoder.encode("12345678"));
         System.out.println("testUser before save -> " + testUser);
         userRepository.save(testUser);
         System.out.println("testUser after save -> " + testUser);
@@ -90,7 +95,7 @@ class AppApplicationTests {
         mockMvc.perform(request)
                 .andExpect(status().isCreated());
 
-        User user = userRepository.findByEmail(data.getEmail());
+        User user = userRepository.findByEmail(data.getEmail()).get();
 
         assertNotNull(user);
         assertThat(user.getFirstName()).isEqualTo(data.getFirstName());
@@ -102,8 +107,19 @@ class AppApplicationTests {
         HashMap<String, String> data = new HashMap<>();
         data.put("firstName", "Mike");
 
+        HashMap<String, String> logoPass = new HashMap<>();
+        logoPass.put("username", testUser.getEmail());
+        logoPass.put("password", "12345678");
+
+        MockHttpServletRequestBuilder requestToken = post("/api/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(logoPass));
+
+        String testToken = mockMvc.perform(requestToken).andReturn().getResponse().getContentAsString();
+
         MockHttpServletRequestBuilder request = put("/api/users/" + testUser.getId())
-                .with(token)
+//                .with(token)
+                .header("Authorization", "Bearer " + testToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(data));
 
