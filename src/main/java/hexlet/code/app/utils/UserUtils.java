@@ -21,4 +21,12 @@ public class UserUtils {
         var username = authentication.getName();
         return userRepository.findByEmail(username).get();
     }
+
+    public long getCurrentUserId() {
+        return getCurrentUser().getId();
+    }
+
+    public boolean isUserTheOwner(long id) {
+        return id == getCurrentUserId();
+    }
 }
