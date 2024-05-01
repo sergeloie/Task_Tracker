@@ -1,12 +1,12 @@
 package hexlet.code.app.component;
 
-import hexlet.code.app.handler.GlobalExceptionHandler;
 import hexlet.code.app.model.TaskStatus;
 import hexlet.code.app.repository.TaskStatusRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -37,13 +37,35 @@ public class TaskStatusInitializer implements ApplicationRunner {
         published.setName("Published");
         published.setSlug("published");
 
-        taskStatusRepository.save(draft);
-        taskStatusRepository.save(toReview);
-        taskStatusRepository.save(toBeFixed);
-        taskStatusRepository.save(toPublish);
-        taskStatusRepository.save(published);
+        try {
+            taskStatusRepository.save(draft);
+        } catch (DataIntegrityViolationException ignored) {
 
+        }
 
+        try {
+            taskStatusRepository.save(toReview);
+        } catch (DataIntegrityViolationException ignored) {
+
+        }
+
+        try {
+            taskStatusRepository.save(toBeFixed);
+        } catch (DataIntegrityViolationException ignored) {
+
+        }
+
+        try {
+            taskStatusRepository.save(toPublish);
+        } catch (DataIntegrityViolationException ignored) {
+
+        }
+
+        try {
+            taskStatusRepository.save(published);
+        } catch (DataIntegrityViolationException ignored) {
+
+        }
 
     }
 }

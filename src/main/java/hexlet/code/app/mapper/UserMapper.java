@@ -21,8 +21,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 
-//@AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public abstract class UserMapper {
+
 
     @Autowired
     private PasswordEncoder encoder;

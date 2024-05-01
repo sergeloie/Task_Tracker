@@ -10,6 +10,7 @@ import hexlet.code.app.repository.UserRepository;
 import hexlet.code.app.utils.UserUtils;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,7 +29,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@AllArgsConstructor
+@AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public class UserController {
 
 
@@ -64,7 +65,7 @@ public class UserController {
         return userMapper.map(user);
     }
 
-//    @PreAuthorize("#id == authentication.principal.id")
+
     @PreAuthorize("@userUtils.isUserTheOwner(#id)")
     @PutMapping(path = "/{id}")
     public UserDTO update(@Valid @RequestBody UserUpdateDTO userUpdateDTO, @PathVariable long id) {
@@ -77,7 +78,7 @@ public class UserController {
         userRepository.save(user);
         return userMapper.map(user);
     }
-//    @PreAuthorize("#id == authentication.principal.id")
+
     @DeleteMapping(path = "/{id}")
     @PreAuthorize("@userUtils.isUserTheOwner(#id)")
     public void delete(@PathVariable long id) {
