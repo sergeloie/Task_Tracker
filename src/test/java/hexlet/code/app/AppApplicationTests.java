@@ -1,11 +1,9 @@
 package hexlet.code.app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.app.controller.UserController;
 import hexlet.code.app.model.User;
 import hexlet.code.app.repository.UserRepository;
 import hexlet.code.app.utils.ModelGenerator;
-import net.datafaker.Faker;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,13 +37,7 @@ class AppApplicationTests {
     private UserRepository userRepository;
 
     @Autowired
-    private UserController userController;
-
-    @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private Faker faker;
 
     @Autowired
     private ModelGenerator modelGenerator;
