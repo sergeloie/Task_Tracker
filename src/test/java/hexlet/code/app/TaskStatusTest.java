@@ -45,7 +45,6 @@ public class TaskStatusTest {
 
     private JwtRequestPostProcessor token;
 
-
     private String authtoken;
 
     private TaskStatus testTaskStatus;
@@ -70,10 +69,10 @@ public class TaskStatusTest {
     @Test
     void testShow() throws Exception {
         MockHttpServletRequestBuilder showRequest = get("/api/task_statuses")
-                .with(token)
-                .header("Authorization", "Bearer " + authtoken);
+                .with(token);
+//                .header("Authorization", "Bearer " + authtoken);
         String result = mockMvc.perform(showRequest)
-//                .andExpect(status().isOk())
+                .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
         assertThat(result.contains("Draft"));
 
@@ -85,10 +84,10 @@ public class TaskStatusTest {
         taskStatusRepository.save(testTaskStatus);
         long id = testTaskStatus.getId();
         MockHttpServletRequestBuilder indexRequest = get("/api/task_statuses/" + id)
-                .with(token)
-                .header("Authorization", "Bearer " + authtoken);
+                .with(token);
+//                .header("Authorization", "Bearer " + authtoken);
         String result = mockMvc.perform(indexRequest)
-//                .andExpect(status().isOk())
+                .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
         assertThat(result.contains(testTaskStatus.getName()));
         assertThat(result.contains(testTaskStatus.getSlug()));
@@ -103,11 +102,12 @@ public class TaskStatusTest {
         map.put("slug", slug);
 
         MockHttpServletRequestBuilder createRequest = post("/api/task_statuses")
-                .header("Authorization", "Bearer " + authtoken)
+                .with(token)
+//                .header("Authorization", "Bearer " + authtoken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(map));
-        mockMvc.perform(createRequest);
-//                .andExpect(status().isCreated())
+        mockMvc.perform(createRequest)
+                .andExpect(status().isCreated());
         TaskStatus status = taskStatusRepository.findTaskStatusBySlug(slug).get();
         assertThat(status.getName()).isEqualTo(name);
     }
@@ -121,11 +121,12 @@ public class TaskStatusTest {
         mapCreate.put("slug", slug);
 
         MockHttpServletRequestBuilder createRequest = post("/api/task_statuses")
-                .header("Authorization", "Bearer " + authtoken)
+                .with(token)
+//                .header("Authorization", "Bearer " + authtoken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(mapCreate));
-        mockMvc.perform(createRequest);
-//                .andExpect(status().isCreated());
+        mockMvc.perform(createRequest)
+                .andExpect(status().isCreated());
 
         TaskStatus status = taskStatusRepository.findTaskStatusBySlug(slug).get();
         long id = status.getId();
@@ -136,7 +137,8 @@ public class TaskStatusTest {
         updateMap.put("slug", slug2);
 
         MockHttpServletRequestBuilder updateRequest = put("/api/task_statuses/" + id)
-                .header("Authorization", "Bearer " + authtoken)
+                .with(token)
+//                .header("Authorization", "Bearer " + authtoken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updateMap));
         mockMvc.perform(updateRequest)
@@ -156,21 +158,24 @@ public class TaskStatusTest {
         mapCreate.put("slug", slug);
 
         MockHttpServletRequestBuilder createRequest = post("/api/task_statuses")
-                .header("Authorization", "Bearer " + authtoken)
+                .with(token)
+//                .header("Authorization", "Bearer " + authtoken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(mapCreate));
-        mockMvc.perform(createRequest);
-//                .andExpect(status().isCreated());
+        mockMvc.perform(createRequest)
+                .andExpect(status().isCreated());
 
         TaskStatus status = taskStatusRepository.findTaskStatusBySlug(slug).get();
         long id = status.getId();
 
         MockHttpServletRequestBuilder deleteRequest = delete("/api/task_statuses/" + id)
-                .header("Authorization", "Bearer " + authtoken);
+                .with(token);
+//                .header("Authorization", "Bearer " + authtoken);
         mockMvc.perform(deleteRequest);
 
         MockHttpServletRequestBuilder indexRequest = get("/api/task_statuses/" + id)
-                .header("Authorization", "Bearer " + authtoken);
+                .with(token);
+//                .header("Authorization", "Bearer " + authtoken);
         mockMvc.perform(indexRequest)
                 .andExpect(status().isNotFound());
 
