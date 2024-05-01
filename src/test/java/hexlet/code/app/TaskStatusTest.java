@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -41,7 +43,10 @@ public class TaskStatusTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private String token;
+    private JwtRequestPostProcessor token;
+
+
+    private String authtoken;
 
     private TaskStatus testTaskStatus;
 
@@ -50,14 +55,14 @@ public class TaskStatusTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-
+        token = jwt().jwt(builder -> builder.subject("hexlet@example.com"));
         Map<String, String> credentials = new HashMap<>();
         credentials.put("username", "hexlet@example.com");
         credentials.put("password", "qwerty");
         MockHttpServletRequestBuilder request = post("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(credentials));
-        token = mockMvc.perform(request)
+        authtoken = mockMvc.perform(request)
                 .andReturn().getResponse().getContentAsString();
 
     }
@@ -65,7 +70,8 @@ public class TaskStatusTest {
     @Test
     void testShow() throws Exception {
         MockHttpServletRequestBuilder showRequest = get("/api/task_statuses")
-                .header("Authorization", "Bearer " + token);
+                .with(token)
+                .header("Authorization", "Bearer " + authtoken);
         String result = mockMvc.perform(showRequest)
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -79,7 +85,8 @@ public class TaskStatusTest {
         taskStatusRepository.save(testTaskStatus);
         long id = testTaskStatus.getId();
         MockHttpServletRequestBuilder indexRequest = get("/api/task_statuses/" + id)
-                .header("Authorization", "Bearer " + token);
+                .with(token)
+                .header("Authorization", "Bearer " + authtoken);
         String result = mockMvc.perform(indexRequest)
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -96,7 +103,7 @@ public class TaskStatusTest {
         map.put("slug", slug);
 
         MockHttpServletRequestBuilder createRequest = post("/api/task_statuses")
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + authtoken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(map));
         mockMvc.perform(createRequest)
@@ -114,7 +121,7 @@ public class TaskStatusTest {
         mapCreate.put("slug", slug);
 
         MockHttpServletRequestBuilder createRequest = post("/api/task_statuses")
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + authtoken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(mapCreate));
         mockMvc.perform(createRequest)
@@ -129,7 +136,7 @@ public class TaskStatusTest {
         updateMap.put("slug", slug2);
 
         MockHttpServletRequestBuilder updateRequest = put("/api/task_statuses/" + id)
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + authtoken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updateMap));
         mockMvc.perform(updateRequest)
@@ -149,7 +156,7 @@ public class TaskStatusTest {
         mapCreate.put("slug", slug);
 
         MockHttpServletRequestBuilder createRequest = post("/api/task_statuses")
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + authtoken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(mapCreate));
         mockMvc.perform(createRequest)
@@ -159,11 +166,11 @@ public class TaskStatusTest {
         long id = status.getId();
 
         MockHttpServletRequestBuilder deleteRequest = delete("/api/task_statuses/" + id)
-                .header("Authorization", "Bearer " + token);
+                .header("Authorization", "Bearer " + authtoken);
         mockMvc.perform(deleteRequest);
 
         MockHttpServletRequestBuilder indexRequest = get("/api/task_statuses/" + id)
-                .header("Authorization", "Bearer " + token);
+                .header("Authorization", "Bearer " + authtoken);
         mockMvc.perform(indexRequest)
                 .andExpect(status().isNotFound());
 
