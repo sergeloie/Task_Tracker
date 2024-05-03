@@ -14,10 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING
 )
-@AllArgsConstructor(onConstructor_ = @__(@Autowired))
-@NoArgsConstructor
+//@AllArgsConstructor(onConstructor_ = @__(@Autowired))
+//@NoArgsConstructor
 public class ReferenceMapper {
 
+    @Autowired
     private EntityManager entityManager;
 
     public <T extends BaseEntity> T toEntity(Long id, @TargetType Class<T> entityClass) {
