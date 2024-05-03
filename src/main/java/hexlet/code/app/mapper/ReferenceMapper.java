@@ -3,8 +3,6 @@ package hexlet.code.app.mapper;
 import hexlet.code.app.model.BaseEntity;
 import hexlet.code.app.model.TaskStatus;
 import jakarta.persistence.EntityManager;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.Named;
@@ -14,8 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING
 )
-//@AllArgsConstructor(onConstructor_ = @__(@Autowired))
-//@NoArgsConstructor
+
 public class ReferenceMapper {
 
     @Autowired
