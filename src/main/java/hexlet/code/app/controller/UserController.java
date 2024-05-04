@@ -66,21 +66,18 @@ public class UserController {
     }
 
 
-    @PreAuthorize("@userUtils.isUserTheOwner(#id)")
+//    @PreAuthorize("@userUtils.isUserTheOwner(#id)")
     @PutMapping(path = "/{id}")
     public UserDTO update(@Valid @RequestBody UserUpdateDTO userUpdateDTO, @PathVariable long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("User with id %d not found", id)));
         userMapper.update(userUpdateDTO, user);
-        if (userUpdateDTO.getPassword() != null) {
-            user.setPasswordDigest(passwordEncoder.encode(userUpdateDTO.getPassword()));
-        }
         userRepository.save(user);
         return userMapper.map(user);
     }
 
     @DeleteMapping(path = "/{id}")
-    @PreAuthorize("@userUtils.isUserTheOwner(#id)")
+//    @PreAuthorize("@userUtils.isUserTheOwner(#id)")
     public void delete(@PathVariable long id) {
         userRepository.deleteById(id);
     }
