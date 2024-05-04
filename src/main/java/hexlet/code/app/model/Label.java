@@ -9,7 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "labels")
@@ -20,7 +20,7 @@ public class Label implements BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique = true)
     @NotNull
@@ -30,8 +30,6 @@ public class Label implements BaseEntity{
     @CreatedDate
     private LocalDate createdAt;
 
-    @ManyToMany()
-    private Collection<Task> tasks;
-
-
+    @ManyToMany(mappedBy = "labels")
+    private List<Task> tasks;
 }

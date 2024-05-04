@@ -36,8 +36,16 @@ public abstract class UserMapper {
     public abstract void update(UserUpdateDTO userUpdateDTO, @MappingTarget User user);
 
     @BeforeMapping
-    public void encryptPassword(UserCreateDTO data) {
-        var password = data.getPassword();
-        data.setPassword(encoder.encode(password));
+    public void encryptPassword(UserCreateDTO userCreateDTO) {
+        var password = userCreateDTO.getPassword();
+        userCreateDTO.setPassword(encoder.encode(password));
+    }
+
+    @BeforeMapping
+    public void encryptPassword(UserUpdateDTO userUpdateDTO) {
+        var password = userUpdateDTO.getPassword();
+        if (password != null) {
+            userUpdateDTO.setPassword(encoder.encode(password));
+        }
     }
 }

@@ -17,7 +17,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "task_statuses")
+@Table(name = "taskstatuses")
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
@@ -25,7 +25,7 @@ public class TaskStatus implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique = true)
     @NotNull
