@@ -17,6 +17,7 @@ public class ModelGenerator {
     private Model<User> userModel;
     private Model<TaskStatus> taskStatusModel;
 
+
     @Autowired
     private Faker faker;
 
@@ -32,5 +33,7 @@ public class ModelGenerator {
                 .supply(Select.field(TaskStatus::getName), () -> faker.name().firstName())
                 .supply(Select.field(TaskStatus::getSlug), () -> faker.name().lastName())
                 .toModel();
+
+
     }
 }
