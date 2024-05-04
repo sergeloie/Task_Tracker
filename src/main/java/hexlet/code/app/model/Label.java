@@ -30,7 +30,7 @@ public class Label implements BaseEntity{
     @CreatedDate
     private LocalDate createdAt;
 
-    @ManyToMany(mappedBy = "labels")
+    @ManyToMany()
     private Collection<Task> tasks;
 
 
