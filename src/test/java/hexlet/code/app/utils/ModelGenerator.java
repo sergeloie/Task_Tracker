@@ -1,7 +1,5 @@
 package hexlet.code.app.utils;
 
-import hexlet.code.app.dto.task.TaskCreateDTO;
-import hexlet.code.app.model.Task;
 import hexlet.code.app.model.TaskStatus;
 import hexlet.code.app.model.User;
 import jakarta.annotation.PostConstruct;

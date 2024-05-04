@@ -74,7 +74,7 @@ public class TaskStatusTest {
         String result = mockMvc.perform(showRequest)
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        assertThat(result.contains("Draft"));
+        assertThat(result).contains("Draft");
 
     }
 
@@ -89,8 +89,8 @@ public class TaskStatusTest {
         String result = mockMvc.perform(indexRequest)
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        assertThat(result.contains(testTaskStatus.getName()));
-        assertThat(result.contains(testTaskStatus.getSlug()));
+        assertThat(result).contains(testTaskStatus.getName());
+        assertThat(result).contains(testTaskStatus.getSlug());
     }
 
     @Test
