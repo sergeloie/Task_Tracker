@@ -150,10 +150,10 @@ public class LabelTest {
                 .andReturn().getResponse().getContentAsString();
         LabelDTO labelDTO = objectMapper.readValue(result, LabelDTO.class);
         Long labelId = labelDTO.getId();
-        mockMvc.perform(get("/api/labels/" + labelId)).andExpect(status().isOk());
+        mockMvc.perform(get("/api/labels/" + labelId).with(token)).andExpect(status().isOk());
         MockHttpServletRequestBuilder deleteUnassigned = delete("/api/labels/" + labelId)
                 .with(token);
         mockMvc.perform(deleteUnassigned).andExpect(status().isOk());
-        mockMvc.perform(get("/api/labels/" + labelId)).andExpect(status().isNotFound());
+        mockMvc.perform(get("/api/labels/" + labelId).with(token)).andExpect(status().isNotFound());
     }
 }

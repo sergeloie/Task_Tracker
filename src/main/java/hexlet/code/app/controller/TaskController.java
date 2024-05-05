@@ -34,11 +34,11 @@ public class TaskController {
     private TaskMapper taskMapper;
 
     @GetMapping
-    public List<TaskDTO> index(            @RequestParam(required = false) String titleCont,
-                                           @RequestParam(required = false) Long assigneeId,
-                                           @RequestParam(required = false) String status,
-                                           @RequestParam(required = false) Long labelId,
-                                           Pageable pageable) {
+    public List<TaskDTO> index(@RequestParam(required = false) String titleCont,
+                               @RequestParam(required = false) Long assigneeId,
+                               @RequestParam(required = false) String status,
+                               @RequestParam(required = false) Long labelId,
+                               Pageable pageable) {
         Page<Task> tasks = taskRepository.findAllByTitleContainingAndAssigneeIdAndStatusAndLabelId(
                 titleCont, assigneeId, status, labelId, pageable);
 //        return taskRepository.findAll().stream()
