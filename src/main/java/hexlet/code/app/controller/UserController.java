@@ -66,7 +66,7 @@ public class UserController {
     }
 
 
-//    @PreAuthorize("@userUtils.isUserTheOwner(#id)")
+    @PreAuthorize("@userUtils.isUserTheOwner(#id)")
     @PutMapping(path = "/{id}")
     public UserDTO update(@Valid @RequestBody UserUpdateDTO userUpdateDTO, @PathVariable long id) {
         User user = userRepository.findById(id)
@@ -77,7 +77,7 @@ public class UserController {
     }
 
     @DeleteMapping(path = "/{id}")
-//    @PreAuthorize("@userUtils.isUserTheOwner(#id)")
+    @PreAuthorize("@userUtils.isUserTheOwner(#id)")
     public void delete(@PathVariable long id) {
         userRepository.deleteById(id);
     }
