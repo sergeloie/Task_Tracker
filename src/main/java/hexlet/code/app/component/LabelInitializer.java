@@ -8,6 +8,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
+import io.sentry.Sentry;
+
 
 @Component
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
@@ -25,11 +27,15 @@ public class LabelInitializer implements ApplicationRunner {
 
         try {
             labelRepository.save(feature);
-        } catch (DataIntegrityViolationException ignored) {}
+        } catch (DataIntegrityViolationException e) {
+            Sentry.captureException(e);
+        }
 
         try {
             labelRepository.save(bug);
-        } catch (DataIntegrityViolationException ignored) {}
+        } catch (DataIntegrityViolationException e) {
+            Sentry.captureException(e);
+        }
 
     }
 }
