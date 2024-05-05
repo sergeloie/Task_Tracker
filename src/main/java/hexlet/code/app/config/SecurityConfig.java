@@ -36,7 +36,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login", "/", "/welcome").permitAll()
                         .requestMatchers("/assets/**", "index.html").permitAll()
+                        .requestMatchers("/context-path/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/swagger-ui", "/v3/api-docs").permitAll()
                         .anyRequest().authenticated())
+//                        .anyRequest().permitAll())
 
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(rs -> rs.jwt(jwt -> jwt.decoder(jwtDecoder)))
@@ -51,7 +54,7 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationProvider daoAuthProvider(AuthenticationManagerBuilder auth) {
-        var provider = new DaoAuthenticationProvider();
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(customUserDetailsService);
         provider.setPasswordEncoder(passwordEncoder);
         return provider;

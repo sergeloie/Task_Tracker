@@ -69,7 +69,7 @@ public class TaskTest {
     private TaskCreateDTO getTaskCreateDTO() throws Exception {
         TaskCreateDTO taskCreateDTO = new TaskCreateDTO();
         taskCreateDTO.setIndex(faker.number().numberBetween(1, 100));
-        taskCreateDTO.setAssigneeId(1);
+        taskCreateDTO.setAssigneeId(1L);
         taskCreateDTO.setTitle(faker.text().text(20, 50));
         taskCreateDTO.setContent(faker.text().text(100, 200));
         taskCreateDTO.setStatus(getRandomSlug());
@@ -136,7 +136,7 @@ public class TaskTest {
         assertThat(resultShow).contains(name);
 
         TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO();
-        taskUpdateDTO.setAssigneeId(1);
+        taskUpdateDTO.setAssigneeId(1L);
         taskUpdateDTO.setContent("updatedContent");
         taskUpdateDTO.setIndex(1001);
         taskUpdateDTO.setTitle("updatedTitle");

@@ -72,9 +72,6 @@ public class UserController {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("User with id %d not found", id)));
         userMapper.update(userUpdateDTO, user);
-        if (userUpdateDTO.getPassword() != null) {
-            user.setPasswordDigest(passwordEncoder.encode(userUpdateDTO.getPassword()));
-        }
         userRepository.save(user);
         return userMapper.map(user);
     }
