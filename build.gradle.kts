@@ -106,7 +106,7 @@ sentry {
 //	authToken = System.getenv("SENTRY_AUTH_TOKEN")
 	authToken.set(System.getenv("SENTRY_AUTH_TOKEN"))
 }
-//tasks.sentryBundleSourcesJava {
-//	enabled = System.getenv("SENTRY_AUTH_TOKEN") != null
-//}
+tasks.sentryBundleSourcesJava {
+	enabled = System.getenv("SENTRY_AUTH_TOKEN") != null
+}
 
