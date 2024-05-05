@@ -102,6 +102,7 @@ sentry {
 		enabled.set(true)
 	}
 	projectName.set("project99")
+	org.set("anseranser")
 	authToken = System.getenv("SENTRY_AUTH_TOKEN")
 }
 
