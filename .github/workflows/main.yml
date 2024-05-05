@@ -8,6 +8,8 @@ jobs:
     env:
       ADMIN_LOGIN: ${{secrets.ADMIN_LOGIN}}
       ADMIN_PASSWORD: ${{secrets.ADMIN_PASSWORD}}
+      SENTRY_AUTH_TOKEN: ${{secrets.SENTRY_AUTH_TOKEN}}
+
 
     steps:
       - uses: actions/checkout@v4
