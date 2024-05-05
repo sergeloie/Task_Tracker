@@ -51,6 +51,9 @@ dependencies {
 	implementation(libs.jackson.databind.nullable)
 	implementation(libs.datafaker)
 	implementation(libs.instancio)
+
+	testImplementation("net.javacrumbs.json-unit:json-unit-assertj:3.2.7")
+
 }
 
 tasks.withType<Test> {
