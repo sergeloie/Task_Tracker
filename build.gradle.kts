@@ -103,7 +103,10 @@ sentry {
 	}
 	projectName.set("project99")
 	org.set("anseranser")
-	authToken = System.getenv("SENTRY_AUTH_TOKEN")
+//	authToken = System.getenv("SENTRY_AUTH_TOKEN")
+	authToken.set(System.getenv("SENTRY_AUTH_TOKEN"))
 }
-
+//tasks.sentryBundleSourcesJava {
+//	enabled = System.getenv("SENTRY_AUTH_TOKEN") != null
+//}
 
