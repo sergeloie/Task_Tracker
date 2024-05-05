@@ -101,6 +101,7 @@ sentry {
 	autoInstallation {
 		enabled.set(true)
 	}
+	projectName.set("project99")
 	authToken = System.getenv("SENTRY_AUTH_TOKEN")
 }
 
