@@ -37,6 +37,7 @@ public class SecurityConfig {
 //                        .requestMatchers("/api/login", "/", "/welcome").permitAll()
 //                        .requestMatchers("/assets/**", "index.html").permitAll()
 //                        .requestMatchers("/context-path/**").permitAll()
+//                        .requestMatchers("/swagger-ui/**". "/swagger-ui", "/v3/api-docs").permitAll()
 //                        .anyRequest().authenticated())
                         .anyRequest().permitAll())
 
@@ -53,7 +54,7 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationProvider daoAuthProvider(AuthenticationManagerBuilder auth) {
-        var provider = new DaoAuthenticationProvider();
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(customUserDetailsService);
         provider.setPasswordEncoder(passwordEncoder);
         return provider;
