@@ -14,3 +14,9 @@ logging:
         security: DEBUG
         web:
           cors: DEBUG
+
+sentry:
+  dsn: https://f93f0fccdb8ea4ab00379f95df35c253@o4507203302653952.ingest.de.sentry.io/4507203346890832
+  # Set traces-sample-rate to 1.0 to capture 100% of transactions for performance monitoring.
+  # We recommend adjusting this value in production.
+  traces-sample-rate: 1.0

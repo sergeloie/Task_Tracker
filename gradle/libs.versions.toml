@@ -13,6 +13,7 @@ datafaker-version = "2.0.2"
 instancio-version = "3.6.0"
 swagger-version = "2.5.0"
 
+
 [libraries]
 h2 = { module = "com.h2database:h2", version.ref = "h2-version" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-plarform-version" }
@@ -72,3 +73,4 @@ patrikerdesUseLatestVersionsPlugin = "se.patrikerdes.use-latest-versions:0.2.18"
 springDependencyManagementPlugin = "io.spring.dependency-management:1.1.4"
 springFrameworkPlugin = { id = "org.springframework.boot", version.ref = "spring-version" }
 sonarCubePlugin = "org.sonarqube:4.4.1.3373"
+sentryPlugin = "io.sentry.jvm.gradle:4.5.1"
