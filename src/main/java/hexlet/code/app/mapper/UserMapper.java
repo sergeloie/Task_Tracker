@@ -37,13 +37,13 @@ public abstract class UserMapper {
 
     @BeforeMapping
     public void encryptPassword(UserCreateDTO userCreateDTO) {
-        var password = userCreateDTO.getPassword();
+        String password = userCreateDTO.getPassword();
         userCreateDTO.setPassword(encoder.encode(password));
     }
 
     @BeforeMapping
     public void encryptPassword(UserUpdateDTO userUpdateDTO) {
-        var password = userUpdateDTO.getPassword();
+        String password = userUpdateDTO.getPassword();
         if (password != null) {
             userUpdateDTO.setPassword(encoder.encode(password));
         }
