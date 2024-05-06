@@ -2,7 +2,6 @@ package hexlet.code.app;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.app.dto.user.UserCreateDTO;
-import hexlet.code.app.model.User;
 import hexlet.code.app.utils.UserGenerator;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
