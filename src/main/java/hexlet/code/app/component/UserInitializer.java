@@ -18,8 +18,10 @@ public class UserInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        String email = System.getenv("ADMIN_LOGIN");
-        String password = System.getenv("ADMIN_PASSWORD");
+//        String email = System.getenv("ADMIN_LOGIN");
+//        String password = System.getenv("ADMIN_PASSWORD");
+        String email = "hexlet@example.com";
+        String password = "qwerty";
         User user = new User();
         user.setEmail(email);
         user.setPasswordDigest(passwordEncoder.encode(password));

@@ -1,5 +1,6 @@
 package hexlet.code.app.dto.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -12,6 +13,7 @@ public class UserCreateDTO {
 
     @Email
     @NotNull
+    @JsonProperty("email")
     private String username;
     private String firstName;
     private String lastName;

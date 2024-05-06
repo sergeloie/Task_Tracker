@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,19 +35,20 @@ public class TaskController {
     private TaskMapper taskMapper;
 
     @GetMapping
-    public List<TaskDTO> index(@RequestParam(required = false) String titleCont,
-                               @RequestParam(required = false) Long assigneeId,
-                               @RequestParam(required = false) String status,
-                               @RequestParam(required = false) Long labelId,
-                               Pageable pageable) {
+    public ResponseEntity<List<TaskDTO>> index(@RequestParam(required = false) String titleCont,
+                                               @RequestParam(required = false) Long assigneeId,
+                                               @RequestParam(required = false) String status,
+                                               @RequestParam(required = false) Long labelId,
+                                               Pageable pageable) {
         Page<Task> tasks = taskRepository.findAllByTitleContainingAndAssigneeIdAndStatusAndLabelId(
                 titleCont, assigneeId, status, labelId, pageable);
-//        return taskRepository.findAll().stream()
-//                .map(taskMapper::map)
-//                .toList();
-        return tasks.stream()
+
+        var result =  tasks.stream()
                 .map(taskMapper::map)
                 .toList();
+        return ResponseEntity.ok()
+                .header("X-Total-Count", String.valueOf(result.size()))
+                .body(result);
     }
 
 

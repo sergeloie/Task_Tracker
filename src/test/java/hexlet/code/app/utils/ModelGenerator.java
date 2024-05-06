@@ -36,10 +36,10 @@ public class ModelGenerator {
                 .supply(Select.field(TaskStatus::getSlug), () -> faker.name().lastName())
                 .toModel();
 
-        labelModel = Instancio.of(Label.class)
-                .ignore(Select.field(Label::getId))
-                .supply(Select.field(Label::getName), () -> faker.verb().base())
-                .toModel();
+//        labelModel = Instancio.of(Label.class)
+//                .ignore(Select.field(Label::getId))
+//                .supply(Select.field(Label::getName), () -> faker.verb().base())
+//                .toModel();
 
     }
 }
