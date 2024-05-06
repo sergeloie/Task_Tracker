@@ -40,5 +40,10 @@ public class UserGenerator {
                 .toModel();
 
         userUpdateDTOModel = Instancio.of(UserUpdateDTO.class)
+                .supply(Select.field(UserUpdateDTO::getUsername), () -> faker.internet().emailAddress())
+                .supply(Select.field(UserUpdateDTO::getFirstName), () -> faker.name().firstName())
+                .supply(Select.field(UserUpdateDTO::getLastName), () -> faker.name().lastName())
+                .supply(Select.field(UserUpdateDTO::getPassword), () -> "87654321")
+                .toModel();
     }
 }
