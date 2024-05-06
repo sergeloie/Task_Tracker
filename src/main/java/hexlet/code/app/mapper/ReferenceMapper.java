@@ -49,12 +49,37 @@ public class ReferenceMapper {
         return labels;
     }
 
+    @Named("insertLabelsIdToTask")
+    public List<Label> insertLabelsIdToTask(List<Long> labelIds) {
+        if (labelIds == null || labelIds.isEmpty()) {
+            return new ArrayList<>();
+        }
+        List<Label> labels = new ArrayList<>();
+        for (Long labelId : labelIds) {
+            Label label = entityManager.createQuery("SELECT l FROM Label l where l.id = :labelId", Label.class)
+                    .setParameter("labelId", labelId)
+                    .getSingleResult();
+            labels.add(label);
+        }
+        return labels;
+    }
+
     @Named("labelsToStrings")
     public List<String> labelsToStrings(List<Label> labels) {
         List<String> result = new ArrayList<>();
         for (Label label : labels) {
             String name = label.getName();
             result.add(name);
+        }
+        return result;
+    }
+
+    @Named("labelsToIds")
+    public List<Long> labelsToIds(List<Label> labels) {
+        List<Long> result = new ArrayList<>();
+        for (Label label : labels) {
+            Long id = label.getId();
+            result.add(id);
         }
         return result;
     }
