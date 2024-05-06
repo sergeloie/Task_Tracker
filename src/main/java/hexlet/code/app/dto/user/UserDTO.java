@@ -1,5 +1,6 @@
 package hexlet.code.app.dto.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ public class UserDTO {
     private Long id;
     private String firstName;
     private String lastName;
+    @JsonProperty("email")
     private String username;
     private LocalDate createdAt;
 }
