@@ -33,6 +33,8 @@ public abstract class UserMapper {
 
     @Mapping(target = "username", source = "email")
     public abstract UserDTO map(User user);
+
+    @Mapping(target = "email", source = "username")
     public abstract void update(UserUpdateDTO userUpdateDTO, @MappingTarget User user);
 
     @BeforeMapping
