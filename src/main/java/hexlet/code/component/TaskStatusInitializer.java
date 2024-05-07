@@ -16,7 +16,7 @@ public class TaskStatusInitializer implements ApplicationRunner {
     private final TaskStatusRepository taskStatusRepository;
 
     @Override
-    public void run(ApplicationArguments args) throws DataIntegrityViolationException{
+    public void run(ApplicationArguments args) throws DataIntegrityViolationException {
         TaskStatus draft = new TaskStatus();
         draft.setName("Draft");
         draft.setSlug("draft");

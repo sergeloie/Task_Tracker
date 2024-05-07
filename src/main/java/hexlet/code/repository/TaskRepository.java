@@ -1,13 +1,11 @@
 package hexlet.code.repository;
 
 import hexlet.code.model.Task;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-import java.util.List;
 
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
@@ -26,18 +24,4 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             @Param("labelId") Long labelId,
             Pageable pageable);
 
-    List<Task> findAllByNameContainingAndAssigneeIdAndTaskStatusSlug(
-            String titleCont,
-            Long assigneeId,
-            String status
-    );
-
-    List<Task> findAllByNameContainingAndAssigneeIdAndTaskStatusSlugAndLabels_IdOrAssigneeIdIsNullOrTaskStatusSlugIsNullOrLabels_IdIsNull(
-            String titleCont,
-            Long assigneeId,
-            String status,
-            Long labelId
-    );
-
-    List<Task> findAllByNameContainingAndAssigneeIdAndTaskStatusSlugAndLabelsIdOrAssigneeIdIsNullOrTaskStatusSlugIsNullOrLabelsIdIsNull(String name, Long assignee_id, String taskStatus_slug, Long labels_id);
 }

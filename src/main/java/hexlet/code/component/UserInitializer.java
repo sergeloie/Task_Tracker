@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
-public class UserInitializer implements ApplicationRunner{
+public class UserInitializer implements ApplicationRunner {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 

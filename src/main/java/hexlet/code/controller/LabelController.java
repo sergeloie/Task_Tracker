@@ -76,7 +76,7 @@ public class LabelController {
         Label label = labelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(
                 String.format("Label with id %d not found", id)));
         labelMapper.update(labelUpdateDTO, label);
-            labelRepository.save(label);
+        labelRepository.save(label);
         return labelMapper.map(label);
     }
 
