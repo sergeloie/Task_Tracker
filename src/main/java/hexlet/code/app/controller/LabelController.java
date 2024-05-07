@@ -63,26 +63,20 @@ public class LabelController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public LabelDTO create(@RequestBody @Valid LabelCreateDTO labelCreateDTO) {
+    public LabelDTO create(@RequestBody @Valid LabelCreateDTO labelCreateDTO)
+            throws DataIntegrityViolationException {
         Label label = labelMapper.map(labelCreateDTO);
-        try {
-            labelRepository.save(label);
-        } catch (DataIntegrityViolationException e) {
-            throw new IllegalArgumentException(String.format("Label with name '%s' already exists", label));
-        }
+        labelRepository.save(label);
         return labelMapper.map(label);
     }
 
     @PutMapping(path = "/{id}")
-    public LabelDTO update(@PathVariable long id, @RequestBody @Valid LabelUpdateDTO labelUpdateDTO) {
+    public LabelDTO update(@PathVariable long id, @RequestBody @Valid LabelUpdateDTO labelUpdateDTO)
+            throws DataIntegrityViolationException {
         Label label = labelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(
                 String.format("Label with id %d not found", id)));
         labelMapper.update(labelUpdateDTO, label);
-        try {
             labelRepository.save(label);
-        } catch (DataIntegrityViolationException e) {
-            throw new IllegalArgumentException(String.format("Label with name '%s' already exists", label));
-        }
         return labelMapper.map(label);
     }
 

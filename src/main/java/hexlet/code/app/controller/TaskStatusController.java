@@ -66,16 +66,10 @@ public class TaskStatusController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TaskStatusDTO create(@Valid @RequestBody TaskStatusCreateDTO taskStatusCreateDTO) {
+    public TaskStatusDTO create(@Valid @RequestBody TaskStatusCreateDTO taskStatusCreateDTO)
+            throws DataIntegrityViolationException {
         TaskStatus taskStatus = taskStatusMapper.map(taskStatusCreateDTO);
-        try {
-            taskStatusRepository.save(taskStatus);
-        } catch (DataIntegrityViolationException e) {
-            throw new IllegalArgumentException(
-                    String.format("Task status with name = '%s' or slug = '%s' already exists",
-                    taskStatus.getName(),
-                    taskStatus.getSlug()));
-        }
+        taskStatusRepository.save(taskStatus);
         return taskStatusMapper.map(taskStatus);
     }
 

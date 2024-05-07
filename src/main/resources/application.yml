@@ -7,13 +7,13 @@ spring:
     show-sql: true
     generate-ddl: true
 
-logging:
-  level:
-    org:
-      springframework:
-        security: DEBUG
-        web:
-          cors: DEBUG
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        security: DEBUG
+#        web:
+#          cors: DEBUG
 
 sentry:
   dsn: https://f93f0fccdb8ea4ab00379f95df35c253@o4507203302653952.ingest.de.sentry.io/4507203346890832

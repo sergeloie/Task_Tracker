@@ -71,14 +71,10 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO create(@Valid @RequestBody UserCreateDTO userCreateDTO) {
+    public UserDTO create(@Valid @RequestBody UserCreateDTO userCreateDTO)
+            throws DataIntegrityViolationException {
         User user = userMapper.map(userCreateDTO);
-        String login = user.getEmail();
-        try {
-            userRepository.save(user);
-        } catch (DataIntegrityViolationException e) {
-            throw new IllegalArgumentException(String.format("Username with login '%s' already exists", login));
-        }
+        userRepository.save(user);
         return userMapper.map(user);
     }
 

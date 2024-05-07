@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
-public class UserInitializer implements ApplicationRunner {
+public class UserInitializer implements ApplicationRunner{
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void run(ApplicationArguments args) {
+    public void run(ApplicationArguments args) throws DataIntegrityViolationException {
 //        String email = System.getenv("ADMIN_LOGIN");
 //        String password = System.getenv("ADMIN_PASSWORD");
         String email = "hexlet@example.com";
@@ -25,10 +25,7 @@ public class UserInitializer implements ApplicationRunner {
         User user = new User();
         user.setEmail(email);
         user.setPasswordDigest(passwordEncoder.encode(password));
-        try {
-            userRepository.save(user);
-        } catch (DataIntegrityViolationException e) {
-//            throw new IllegalArgumentException(String.format("Username with login '%s' already exists", email));
-        }
+        userRepository.save(user);
+
     }
 }

@@ -16,7 +16,7 @@ public class TaskStatusInitializer implements ApplicationRunner {
     private final TaskStatusRepository taskStatusRepository;
 
     @Override
-    public void run(ApplicationArguments args) {
+    public void run(ApplicationArguments args) throws DataIntegrityViolationException{
         TaskStatus draft = new TaskStatus();
         draft.setName("Draft");
         draft.setSlug("draft");
@@ -37,35 +37,11 @@ public class TaskStatusInitializer implements ApplicationRunner {
         published.setName("Published");
         published.setSlug("published");
 
-        try {
-            taskStatusRepository.save(draft);
-        } catch (DataIntegrityViolationException ignored) {
-
-        }
-
-        try {
-            taskStatusRepository.save(toReview);
-        } catch (DataIntegrityViolationException ignored) {
-
-        }
-
-        try {
-            taskStatusRepository.save(toBeFixed);
-        } catch (DataIntegrityViolationException ignored) {
-
-        }
-
-        try {
-            taskStatusRepository.save(toPublish);
-        } catch (DataIntegrityViolationException ignored) {
-
-        }
-
-        try {
-            taskStatusRepository.save(published);
-        } catch (DataIntegrityViolationException ignored) {
-
-        }
+        taskStatusRepository.save(draft);
+        taskStatusRepository.save(toReview);
+        taskStatusRepository.save(toBeFixed);
+        taskStatusRepository.save(toPublish);
+        taskStatusRepository.save(published);
 
     }
 }
