@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public class TaskStatusInitializer implements ApplicationRunner {
 
-    private TaskStatusRepository taskStatusRepository;
+    private final TaskStatusRepository taskStatusRepository;
 
     @Override
     public void run(ApplicationArguments args) {

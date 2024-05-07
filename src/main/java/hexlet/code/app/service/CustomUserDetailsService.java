@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public class CustomUserDetailsService implements UserDetailsManager {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public void createUser(UserDetails user) {

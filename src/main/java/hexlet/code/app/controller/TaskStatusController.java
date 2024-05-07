@@ -34,8 +34,8 @@ import java.util.List;
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public class TaskStatusController {
 
-    private TaskStatusMapper taskStatusMapper;
-    private TaskStatusRepository taskStatusRepository;
+    private final TaskStatusMapper taskStatusMapper;
+    private final TaskStatusRepository taskStatusRepository;
 
     @GetMapping
     public ResponseEntity<List<TaskStatusDTO>> index(@RequestParam(defaultValue = "0") int _start,

@@ -33,8 +33,8 @@ import java.util.List;
 @RequestMapping("/api/labels")
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public class LabelController {
-    private LabelRepository labelRepository;
-    private LabelMapper labelMapper;
+    private final LabelRepository labelRepository;
+    private final LabelMapper labelMapper;
 
     @GetMapping
     public ResponseEntity<List<LabelDTO>> index(@RequestParam(defaultValue = "0") int _start,

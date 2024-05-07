@@ -25,9 +25,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public class SecurityConfig {
 
-    private JwtDecoder jwtDecoder;
-    private PasswordEncoder passwordEncoder;
-    private CustomUserDetailsService customUserDetailsService;
+    private final JwtDecoder jwtDecoder;
+    private final PasswordEncoder passwordEncoder;
+    private final CustomUserDetailsService customUserDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

@@ -38,10 +38,10 @@ import java.util.List;
 public class UserController {
 
 
-    private UserMapper userMapper;
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-    private UserUtils userUtils;
+    private final UserMapper userMapper;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserUtils userUtils;
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> index(@RequestParam(defaultValue = "0") int _start,

@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public class AuthenticationController {
 
-    private JwtUtils jwtUtils;
-    private AuthenticationManager authenticationManager;
+    private final JwtUtils jwtUtils;
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping(path = "/login")
     public String create(@RequestBody AuthRequest authRequest) {

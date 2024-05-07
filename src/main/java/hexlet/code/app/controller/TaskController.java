@@ -31,8 +31,8 @@ import java.util.List;
 @RequestMapping("/api/tasks")
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public class TaskController {
-    private TaskRepository taskRepository;
-    private TaskMapper taskMapper;
+    private final TaskRepository taskRepository;
+    private final TaskMapper taskMapper;
 
     @GetMapping
     public ResponseEntity<List<TaskDTO>> index(@RequestParam(required = false) String titleCont,

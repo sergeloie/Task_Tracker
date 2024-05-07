@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public class UserUtils {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

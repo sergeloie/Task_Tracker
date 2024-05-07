@@ -22,7 +22,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public class EncoderConfig {
 
-    private RsaKeyProperties rsaKeys;
+    private final RsaKeyProperties rsaKeys;
 
     @Bean
     public PasswordEncoder passwordEncoder() {

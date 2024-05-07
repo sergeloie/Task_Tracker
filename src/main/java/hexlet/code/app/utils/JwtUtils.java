@@ -15,7 +15,7 @@ import java.time.temporal.ChronoUnit;
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public class JwtUtils {
 
-    private JwtEncoder jwtEncoder;
+    private final JwtEncoder jwtEncoder;
 
     public String generateToken(String username) {
         Instant now = Instant.now();

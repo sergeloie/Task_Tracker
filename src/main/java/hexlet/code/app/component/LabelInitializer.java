@@ -15,7 +15,7 @@ import io.sentry.Sentry;
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public class LabelInitializer implements ApplicationRunner {
 
-    private LabelRepository labelRepository;
+    private final LabelRepository labelRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
