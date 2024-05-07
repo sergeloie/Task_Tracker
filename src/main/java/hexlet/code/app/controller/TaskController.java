@@ -62,7 +62,10 @@ public class TaskController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TaskDTO create(@RequestBody @Valid TaskCreateDTO taskCreateDTO) {
-        return taskMapper.map(taskRepository.save(taskMapper.map(taskCreateDTO)));
+        Task task = taskMapper.map(taskCreateDTO);
+        taskRepository.save(task);
+        return taskMapper.map(task);
+//        return taskMapper.map(taskRepository.save(taskMapper.map(taskCreateDTO)));
     }
 
 

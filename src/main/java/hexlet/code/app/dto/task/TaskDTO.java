@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class TaskDTO {
     private Long id;
-    private Integer index;
+    private int index;
     private LocalDate createdAt;
     private String title;
     private String content;

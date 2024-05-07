@@ -9,7 +9,8 @@ import java.util.List;
 @Getter
 @Setter
 public class TaskCreateDTO {
-    private Integer index;
+
+    private int index;
 
     @JsonProperty("assignee_id")
     private Long assigneeId;

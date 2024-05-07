@@ -1,6 +1,7 @@
 package hexlet.code.app.model;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
@@ -15,6 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.lang.Nullable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,7 +34,7 @@ public class Task implements BaseEntity {
     @Size(min = 1)
     private String name;
 
-    private Integer index;
+    private int index;
 
     private String description;
 
