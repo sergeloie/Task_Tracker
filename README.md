@@ -12,3 +12,16 @@
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=sergeloie_java-project-99&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=sergeloie_java-project-99)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=sergeloie_java-project-99&metric=coverage)](https://sonarcloud.io/summary/new_code?id=sergeloie_java-project-99)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=sergeloie_java-project-99&metric=coverage)](https://sonarcloud.io/summary/new_code?id=sergeloie_java-project-99)
+
+### Deployed on render.com
+https://java-project-99-zicu.onrender.com
+
+### Описание проекта
+
+Проект написан на языке Java с использованием библиотеки [JUnit](https://junit.org/junit5/) для тестирования
+и [Lombok](https://projectlombok.org/) для упрощения написания кода.
+Используется [Spring Boot](https://spring.io/projects/spring-boot) для быстрой и удобной разработки REST API.
+Для сбора ошибок используется сервис [Sentry](https://sentry.io/welcome/)
+Проект является менеджером задач и позволяет создавать новые задачи, удалять и редактировать существующие.
+У задач есть такие аттрибуты, как заголовок, содержание, статус, метка, дата создания и назначенный исполнитель.
+В проекте реализована авторизация и создание пользователей.
