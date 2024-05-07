@@ -43,7 +43,7 @@ public class TaskController {
         Page<Task> tasks = taskRepository.findAllByTitleContainingAndAssigneeIdAndStatusAndLabelId(
                 titleCont, assigneeId, status, labelId, pageable);
 
-        var result =  tasks.stream()
+        List<TaskDTO> result =  tasks.stream()
                 .map(taskMapper::map)
                 .toList();
         return ResponseEntity.ok()

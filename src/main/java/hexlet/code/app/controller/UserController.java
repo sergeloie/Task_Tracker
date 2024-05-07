@@ -52,7 +52,7 @@ public class UserController {
         Sort.Direction direction = Sort.Direction.fromString(_order);
         Pageable pageable = PageRequest.of(page, _end - _start, Sort.by(direction, _sort));
 
-        var result =  userRepository.findAll(pageable).stream()
+        List<UserDTO> result =  userRepository.findAll(pageable).stream()
                 .map(userMapper::map)
                 .toList();
 

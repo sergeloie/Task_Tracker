@@ -46,7 +46,7 @@ public class TaskStatusController {
         Sort.Direction direction = Sort.Direction.fromString(_order);
         Pageable pageable = PageRequest.of(page, _end - _start, Sort.by(direction, _sort));
 
-        var result =  taskStatusRepository.findAll(pageable).stream()
+        List<TaskStatusDTO> result =  taskStatusRepository.findAll(pageable).stream()
                 .map(taskStatusMapper::map)
                 .toList();
 

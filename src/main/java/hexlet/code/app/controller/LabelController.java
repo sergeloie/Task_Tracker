@@ -45,7 +45,7 @@ public class LabelController {
         Sort.Direction direction = Sort.Direction.fromString(_order);
         Pageable pageable = PageRequest.of(page, _end - _start, Sort.by(direction, _sort));
 
-        var result =  labelRepository.findAll(pageable).stream()
+        List<LabelDTO> result =  labelRepository.findAll(pageable).stream()
                 .map(labelMapper::map)
                 .toList();
 
