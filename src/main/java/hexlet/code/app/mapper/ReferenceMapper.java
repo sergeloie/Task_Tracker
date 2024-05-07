@@ -3,6 +3,7 @@ package hexlet.code.app.mapper;
 import hexlet.code.app.model.BaseEntity;
 import hexlet.code.app.model.Label;
 import hexlet.code.app.model.TaskStatus;
+import hexlet.code.app.repository.LabelRepository;
 import jakarta.persistence.EntityManager;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
@@ -21,6 +22,9 @@ public class ReferenceMapper {
 
     @Autowired
     private EntityManager entityManager;
+
+    @Autowired
+    private LabelRepository labelRepository;
 
     public <T extends BaseEntity> T toEntity(Long id, @TargetType Class<T> entityClass) {
         return id != null ? entityManager.find(entityClass, id) : null;
@@ -51,17 +55,7 @@ public class ReferenceMapper {
 
     @Named("insertLabelsIdToTask")
     public List<Label> insertLabelsIdToTask(List<Long> labelIds) {
-        if (labelIds == null || labelIds.isEmpty()) {
-            return new ArrayList<>();
-        }
-        List<Label> labels = new ArrayList<>();
-        for (Long labelId : labelIds) {
-            Label label = entityManager.createQuery("SELECT l FROM Label l where l.id = :labelId", Label.class)
-                    .setParameter("labelId", labelId)
-                    .getSingleResult();
-            labels.add(label);
-        }
-        return labels;
+        return labelRepository.findByIdIn(labelIds);
     }
 
     @Named("labelsToStrings")
