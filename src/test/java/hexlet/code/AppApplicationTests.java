@@ -63,15 +63,6 @@ class AppApplicationTests {
     }
 
     @Test
-    void contextLoads() {
-    }
-
-    @Test
-    void someTest() {
-
-    }
-
-    @Test
     void testIndex() throws Exception {
         mockMvc.perform(get("/api/users").with(jwt())).andExpect(status().isOk());
     }
@@ -122,9 +113,4 @@ class AppApplicationTests {
         User user = userRepository.findById(testUser.getId()).get();
         assertThat(user.getFirstName()).isEqualTo("Mike");
     }
-
-    void filterTest() {
-
-    }
-
 }
