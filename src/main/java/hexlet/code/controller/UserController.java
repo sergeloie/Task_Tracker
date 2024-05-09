@@ -90,6 +90,7 @@ public class UserController {
     }
 
     @DeleteMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("@userUtils.isUserTheOwner(#id)")
     public void delete(@PathVariable long id) {
         userRepository.deleteById(id);
