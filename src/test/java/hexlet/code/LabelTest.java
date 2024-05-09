@@ -8,7 +8,6 @@ import hexlet.code.dto.label.LabelUpdateDTO;
 import hexlet.code.mapper.LabelMapper;
 import hexlet.code.repository.LabelRepository;
 import hexlet.code.testrequest.CommonRequest;
-import hexlet.code.testrequest.LabelRequest;
 import hexlet.code.utils.LabelGenerator;
 import jakarta.transaction.Transactional;
 import org.instancio.Instancio;
@@ -28,9 +27,6 @@ public class LabelTest {
 
     @Autowired
     private CommonRequest commonRequest;
-
-    @Autowired
-    private LabelRequest labelRequest;
 
     @Autowired
     private LabelMapper labelMapper;
@@ -87,7 +83,7 @@ public class LabelTest {
         long id = jsonNode.get("id").asLong();
 
         LabelDTO labelCreated = objectMapper.readValue(resultOfCreation, LabelDTO.class);
-        LabelDTO labelRested = objectMapper.readValue(labelRequest.getLabelByIdRequest(id)
+        LabelDTO labelRested = objectMapper.readValue(commonRequest.showRequest("/api/labels/" + id)
                 .andReturn().getResponse().getContentAsString(), LabelDTO.class);
         LabelDTO labelRepositored = labelMapper.map(labelRepository.getReferenceById(id));
 
