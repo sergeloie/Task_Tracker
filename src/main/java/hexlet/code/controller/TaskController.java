@@ -5,6 +5,7 @@ import hexlet.code.dto.task.TaskDTO;
 import hexlet.code.dto.task.TaskUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.TaskMapper;
+import hexlet.code.model.Label;
 import hexlet.code.model.Task;
 import hexlet.code.repository.TaskRepository;
 import jakarta.validation.Valid;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -38,10 +40,10 @@ public class TaskController {
     public ResponseEntity<List<TaskDTO>> index(@RequestParam(required = false) String titleCont,
                                                @RequestParam(required = false) Long assigneeId,
                                                @RequestParam(required = false) String status,
-                                               @RequestParam(required = false) Long labelId,
-                                               Pageable pageable) {
-        Page<Task> tasks = taskRepository.findAllByTitleContainingAndAssigneeIdAndStatusAndLabelId(
-                titleCont, assigneeId, status, labelId, pageable);
+                                               @RequestParam(required = false) Long labelId
+                                               ) {
+        List<Task> tasks = taskRepository.findAllByTitleContainingAndAssigneeIdAndStatusAndLabelId(
+                titleCont, assigneeId, status, labelId);
 
 
         List<TaskDTO> result =  tasks.stream()
@@ -73,7 +75,13 @@ public class TaskController {
     public TaskDTO update(@PathVariable long id, @RequestBody @Valid TaskUpdateDTO taskUpdateDTO) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Task with id %d not found", id)));
+        List<Label> labelsTask = new ArrayList<>(task.getLabels());
+        List<Long> labelsUpdate = taskUpdateDTO.getLabels();
+
         taskMapper.update(taskUpdateDTO, task);
+        if (labelsUpdate == null) {
+            task.setLabels(labelsTask);
+        }
         taskRepository.save(task);
         return taskMapper.map(task);
     }

@@ -1,11 +1,11 @@
 package hexlet.code.repository;
 
 import hexlet.code.model.Task;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
@@ -17,11 +17,10 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             + "and (:status is null or t.taskStatus.slug = :status) "
             + "and (:labelId is null or exists "
             + "(select l from Label l join l.tasks t2 where l.id = :labelId and t2.id = t.id))")
-    Page<Task> findAllByTitleContainingAndAssigneeIdAndStatusAndLabelId(
+    List<Task> findAllByTitleContainingAndAssigneeIdAndStatusAndLabelId(
             @Param("titleCont") String titleCont,
             @Param("assigneeId") Long assigneeId,
             @Param("status") String status,
-            @Param("labelId") Long labelId,
-            Pageable pageable);
+            @Param("labelId") Long labelId);
 
 }
