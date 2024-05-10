@@ -36,14 +36,14 @@ public class UserGenerator {
                 .supply(Select.field(UserCreateDTO::getUsername), () -> faker.internet().emailAddress())
                 .supply(Select.field(UserCreateDTO::getFirstName), () -> faker.name().firstName())
                 .supply(Select.field(UserCreateDTO::getLastName), () -> faker.name().lastName())
-                .supply(Select.field(UserCreateDTO::getPassword), () -> "12345678")
+                .supply(Select.field(UserCreateDTO::getPassword), () -> faker.text().text(10, 20))
                 .toModel();
 
         userUpdateDTOModel = Instancio.of(UserUpdateDTO.class)
                 .supply(Select.field(UserUpdateDTO::getUsername), () -> faker.internet().emailAddress())
                 .supply(Select.field(UserUpdateDTO::getFirstName), () -> faker.name().firstName())
                 .supply(Select.field(UserUpdateDTO::getLastName), () -> faker.name().lastName())
-                .supply(Select.field(UserUpdateDTO::getPassword), () -> "87654321")
+                .supply(Select.field(UserUpdateDTO::getPassword), () -> faker.text().text(10, 20))
                 .toModel();
     }
 }
