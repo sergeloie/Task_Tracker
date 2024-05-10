@@ -2,12 +2,15 @@ package hexlet.code.component;
 
 import hexlet.code.model.TaskStatus;
 import hexlet.code.repository.TaskStatusRepository;
+import io.sentry.Sentry;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
@@ -16,7 +19,7 @@ public class TaskStatusInitializer implements ApplicationRunner {
     private final TaskStatusRepository taskStatusRepository;
 
     @Override
-    public void run(ApplicationArguments args) throws DataIntegrityViolationException {
+    public void run(ApplicationArguments args) {
         TaskStatus draft = new TaskStatus();
         draft.setName("Draft");
         draft.setSlug("draft");
@@ -37,11 +40,10 @@ public class TaskStatusInitializer implements ApplicationRunner {
         published.setName("Published");
         published.setSlug("published");
 
-        taskStatusRepository.save(draft);
-        taskStatusRepository.save(toReview);
-        taskStatusRepository.save(toBeFixed);
-        taskStatusRepository.save(toPublish);
-        taskStatusRepository.save(published);
-
+        try {
+            taskStatusRepository.saveAll(List.of(draft, toReview, toBeFixed, toPublish, published));
+        } catch (DataIntegrityViolationException e) {
+            Sentry.captureException(e);
+        }
     }
 }

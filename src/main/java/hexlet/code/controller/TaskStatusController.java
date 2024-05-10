@@ -39,7 +39,7 @@ public class TaskStatusController {
 
     @GetMapping
     public ResponseEntity<List<TaskStatusDTO>> index(@RequestParam(defaultValue = "0") int _start,
-                                                     @RequestParam(defaultValue = "10") int _end,
+                                                     @RequestParam(defaultValue = "2147483647") int _end,
                                                      @RequestParam(defaultValue = "id") String _sort,
                                                      @RequestParam(defaultValue = "ASC") String _order) {
         int page = _start / (_end - _start);

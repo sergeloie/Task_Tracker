@@ -6,6 +6,7 @@ import hexlet.code.dto.label.LabelCreateDTO;
 import hexlet.code.dto.label.LabelDTO;
 import hexlet.code.dto.label.LabelUpdateDTO;
 import hexlet.code.mapper.LabelMapper;
+import hexlet.code.model.Label;
 import hexlet.code.repository.LabelRepository;
 import hexlet.code.testrequest.RequestSender;
 import hexlet.code.utils.LabelGenerator;
@@ -85,7 +86,8 @@ public class LabelTest {
         LabelDTO labelCreated = objectMapper.readValue(resultOfCreation, LabelDTO.class);
         LabelDTO labelRested = objectMapper.readValue(requestSender.sendGetRequest("/api/labels/" + id)
                 .andReturn().getResponse().getContentAsString(), LabelDTO.class);
-        LabelDTO labelRepositored = labelMapper.map(labelRepository.getReferenceById(id));
+        Label label =  labelRepository.getReferenceById(id);
+        LabelDTO labelRepositored = labelMapper.map(label);
 
         assertThat(labelCreated).isNotNull();
         assertThat(labelRested).isNotNull();

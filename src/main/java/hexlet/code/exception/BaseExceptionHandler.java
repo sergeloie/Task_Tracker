@@ -1,6 +1,8 @@
 package hexlet.code.exception;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -12,6 +14,7 @@ import java.util.NoSuchElementException;
 
 @ResponseBody
 @ControllerAdvice
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class BaseExceptionHandler {
 
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -30,6 +33,4 @@ public class BaseExceptionHandler {
     public String jsonProcessingExceptionHandler(JsonProcessingException exception) {
         return exception.getCause().getCause().getMessage();
     }
-
-
 }
