@@ -16,32 +16,28 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @Component
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
-public class CommonRequest {
+public class RequestSender {
 
     private ObjectMapper objectMapper;
     private MockMvc mockMvc;
 
-    public ResultActions indexRequest(String path) throws Exception {
+    public ResultActions sendGetRequest(String path) throws Exception {
         return mockMvc.perform(get(path).with(jwt()));
     }
 
-    public ResultActions showRequest(String path) throws Exception {
-        return mockMvc.perform(get(path).with(jwt()));
-    }
-
-    public <T> ResultActions createRequest(String path, T entity) throws Exception {
+    public <T> ResultActions sendPostRequest(String path, T entity) throws Exception {
         return mockMvc.perform(post(path).with(jwt())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(entity)));
     }
 
-    public <T> ResultActions updateRequest(String path, T entity) throws Exception {
+    public <T> ResultActions sendPutRequest(String path, T entity) throws Exception {
         return mockMvc.perform(put(path).with(jwt())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(entity)));
     }
 
-    public ResultActions deleteRequest(String path) throws Exception {
+    public ResultActions sendDeleteRequest(String path) throws Exception {
         return mockMvc.perform(delete(path).with(jwt()));
     }
 

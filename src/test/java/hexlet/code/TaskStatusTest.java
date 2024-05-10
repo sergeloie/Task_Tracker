@@ -5,7 +5,7 @@ import hexlet.code.dto.taskstatus.TaskStatusUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.repository.TaskStatusRepository;
-import hexlet.code.testrequest.CommonRequest;
+import hexlet.code.testrequest.RequestSender;
 import hexlet.code.utils.JsonFieldExtractor;
 import hexlet.code.utils.TaskStatusGenerator;
 import jakarta.transaction.Transactional;
@@ -28,7 +28,7 @@ public class TaskStatusTest {
     private JsonFieldExtractor jsonFieldExtractor;
 
     @Autowired
-    private CommonRequest commonRequest;
+    private RequestSender requestSender;
 
     @Autowired
     private TaskStatusRepository taskStatusRepository;
@@ -40,7 +40,7 @@ public class TaskStatusTest {
     void testCreate() throws Exception {
         TaskStatusCreateDTO taskStatusCreateDTO = Instancio.of(taskStatusGenerator.getTaskStatusCreateDTOModel())
                 .create();
-        String createResult = commonRequest.createRequest("/api/task_statuses", taskStatusCreateDTO)
+        String createResult = requestSender.sendPostRequest("/api/task_statuses", taskStatusCreateDTO)
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
         assertThatJson(createResult).and(
@@ -56,7 +56,7 @@ public class TaskStatusTest {
 
     @Test
     void testIndex() throws Exception {
-        String result = commonRequest.indexRequest("/api/task_statuses")
+        String result = requestSender.sendGetRequest("/api/task_statuses")
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
         assertThatJson(result);
@@ -68,7 +68,7 @@ public class TaskStatusTest {
     void testShow() throws Exception {
         Long id = taskStatusRepository.findTaskStatusBySlug("to_review")
                 .orElseThrow(() -> new ResourceNotFoundException("TaskStatus with slug 'to_review' not found")).getId();
-        String result = commonRequest.showRequest("/api/task_statuses/" + id)
+        String result = requestSender.sendGetRequest("/api/task_statuses/" + id)
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
         assertThatJson(result).and(
@@ -82,14 +82,14 @@ public class TaskStatusTest {
     void testUpdate() throws Exception {
         TaskStatusCreateDTO taskStatusCreateDTO = Instancio.of(taskStatusGenerator.getTaskStatusCreateDTOModel())
                 .create();
-        String createResult = commonRequest.createRequest("/api/task_statuses", taskStatusCreateDTO)
+        String createResult = requestSender.sendPostRequest("/api/task_statuses", taskStatusCreateDTO)
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
         Long id = jsonFieldExtractor.getFieldAsLong(createResult, "id");
 
         TaskStatusUpdateDTO taskStatusUpdateDTO = Instancio.of(taskStatusGenerator.getTaskStatusUpdateDTOModel())
                 .create();
-        String updateResult = commonRequest.updateRequest(
+        String updateResult = requestSender.sendPutRequest(
                 "/api/task_statuses/" + id, taskStatusUpdateDTO)
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -107,14 +107,14 @@ public class TaskStatusTest {
     void deleteTest() throws Exception {
         TaskStatusCreateDTO taskStatusCreateDTO = Instancio.of(taskStatusGenerator.getTaskStatusCreateDTOModel())
                 .create();
-        String createResult = commonRequest.createRequest("/api/task_statuses", taskStatusCreateDTO)
+        String createResult = requestSender.sendPostRequest("/api/task_statuses", taskStatusCreateDTO)
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
         Long id = jsonFieldExtractor.getFieldAsLong(createResult, "id");
 
-        commonRequest.showRequest("/api/task_statuses/" + id).andExpect(status().isOk());
-        commonRequest.deleteRequest("/api/task_statuses/" + id).andExpect(status().isNoContent());
-        commonRequest.showRequest("/api/task_statuses/" + id).andExpect(status().isNotFound());
+        requestSender.sendGetRequest("/api/task_statuses/" + id).andExpect(status().isOk());
+        requestSender.sendDeleteRequest("/api/task_statuses/" + id).andExpect(status().isNoContent());
+        requestSender.sendGetRequest("/api/task_statuses/" + id).andExpect(status().isNotFound());
 
     }
 }

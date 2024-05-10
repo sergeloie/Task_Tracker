@@ -7,7 +7,7 @@ import hexlet.code.dto.label.LabelDTO;
 import hexlet.code.dto.label.LabelUpdateDTO;
 import hexlet.code.mapper.LabelMapper;
 import hexlet.code.repository.LabelRepository;
-import hexlet.code.testrequest.CommonRequest;
+import hexlet.code.testrequest.RequestSender;
 import hexlet.code.utils.LabelGenerator;
 import jakarta.transaction.Transactional;
 import org.instancio.Instancio;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class LabelTest {
 
     @Autowired
-    private CommonRequest commonRequest;
+    private RequestSender requestSender;
 
     @Autowired
     private LabelMapper labelMapper;
@@ -42,7 +42,7 @@ public class LabelTest {
 
     @Test
     void testIndexLabelNew() throws Exception {
-        String result = commonRequest.indexRequest("/api/labels")
+        String result = requestSender.sendGetRequest("/api/labels")
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
         assertThat(result).contains("feature");
@@ -54,10 +54,10 @@ public class LabelTest {
         Long featureId = labelRepository.findByName("feature").getId();
         Long bugId = labelRepository.findByName("bug").getId();
 
-        String featureResult = commonRequest.showRequest("/api/labels/" + featureId)
+        String featureResult = requestSender.sendGetRequest("/api/labels/" + featureId)
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        String bugResult = commonRequest.showRequest("/api/labels/" + bugId)
+        String bugResult = requestSender.sendGetRequest("/api/labels/" + bugId)
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
         assertThatJson(featureResult).and(
@@ -71,7 +71,7 @@ public class LabelTest {
     @Test
     void testCreateLabelNew() throws Exception {
         LabelCreateDTO labelCreateDTO = Instancio.of(labelGenerator.getLabelCreateModel()).create();
-        String resultOfCreation = commonRequest.createRequest("/api/labels", labelCreateDTO)
+        String resultOfCreation = requestSender.sendPostRequest("/api/labels", labelCreateDTO)
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
 
@@ -83,7 +83,7 @@ public class LabelTest {
         long id = jsonNode.get("id").asLong();
 
         LabelDTO labelCreated = objectMapper.readValue(resultOfCreation, LabelDTO.class);
-        LabelDTO labelRested = objectMapper.readValue(commonRequest.showRequest("/api/labels/" + id)
+        LabelDTO labelRested = objectMapper.readValue(requestSender.sendGetRequest("/api/labels/" + id)
                 .andReturn().getResponse().getContentAsString(), LabelDTO.class);
         LabelDTO labelRepositored = labelMapper.map(labelRepository.getReferenceById(id));
 
@@ -99,14 +99,14 @@ public class LabelTest {
     void testUpdateLabel() throws Exception {
         LabelCreateDTO labelCreateDTO = Instancio.of(labelGenerator.getLabelCreateModel()).create();
 
-        String createResult = commonRequest.createRequest("/api/labels", labelCreateDTO)
+        String createResult = requestSender.sendPostRequest("/api/labels", labelCreateDTO)
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
         LabelDTO labelDTO = objectMapper.readValue(createResult, LabelDTO.class);
         Long labelId = labelDTO.getId();
 
         LabelUpdateDTO labelUpdateDTO = Instancio.of(labelGenerator.getLabelUpdateModel()).create();
-        String updateResult = commonRequest.updateRequest("/api/labels/" + labelId, labelUpdateDTO)
+        String updateResult = requestSender.sendPutRequest("/api/labels/" + labelId, labelUpdateDTO)
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
         LabelDTO updatedLabelDTO = objectMapper.readValue(updateResult, LabelDTO.class);
@@ -119,14 +119,14 @@ public class LabelTest {
     void deleteTest() throws Exception {
         LabelCreateDTO labelCreateDTO = Instancio.of(labelGenerator.getLabelCreateModel()).create();
 
-        String result = commonRequest.createRequest("/api/labels", labelCreateDTO)
+        String result = requestSender.sendPostRequest("/api/labels", labelCreateDTO)
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
         LabelDTO labelDTO = objectMapper.readValue(result, LabelDTO.class);
         Long labelId = labelDTO.getId();
 
-        commonRequest.showRequest("/api/labels/" + labelId).andExpect(status().isOk());
-        commonRequest.deleteRequest("/api/labels/" + labelId).andExpect(status().isNoContent());
-        commonRequest.showRequest("/api/labels/" + labelId).andExpect(status().isNotFound());
+        requestSender.sendGetRequest("/api/labels/" + labelId).andExpect(status().isOk());
+        requestSender.sendDeleteRequest("/api/labels/" + labelId).andExpect(status().isNoContent());
+        requestSender.sendGetRequest("/api/labels/" + labelId).andExpect(status().isNotFound());
     }
 }
