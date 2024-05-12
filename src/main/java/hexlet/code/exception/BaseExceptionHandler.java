@@ -3,7 +3,6 @@ package hexlet.code.exception;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.postgresql.util.PSQLException;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataAccessException;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
 
-@DependsOn("labelInitializer")
 @ResponseBody
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -69,6 +67,4 @@ public class BaseExceptionHandler {
     public String handlePSQLException(PSQLException exception) {
         return exception.getMessage();
     }
-
-
 }
