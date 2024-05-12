@@ -3,7 +3,12 @@ rsa:
   public-key: classpath:certs/public.pem
 
 spring:
+  sql:
+    init:
+      mode: always
   jpa:
+    hibernate:
+      ddl-auto: update
     show-sql: true
     generate-ddl: true
 
@@ -20,3 +25,5 @@ sentry:
   # Set traces-sample-rate to 1.0 to capture 100% of transactions for performance monitoring.
   # We recommend adjusting this value in production.
   traces-sample-rate: 1.0
+
+
