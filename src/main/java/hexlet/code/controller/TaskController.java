@@ -2,12 +2,14 @@ package hexlet.code.controller;
 
 import hexlet.code.dto.task.TaskCreateDTO;
 import hexlet.code.dto.task.TaskDTO;
+import hexlet.code.dto.task.TaskParamsDTO;
 import hexlet.code.dto.task.TaskUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.TaskMapper;
 import hexlet.code.model.Label;
 import hexlet.code.model.Task;
 import hexlet.code.repository.TaskRepository;
+import hexlet.code.specification.TaskSpecification;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,18 +34,31 @@ import java.util.List;
 public class TaskController {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
+    private TaskSpecification taskSpecification;
+
+//    @GetMapping
+//    public ResponseEntity<List<TaskDTO>> index(@RequestParam(required = false) String titleCont,
+//                                               @RequestParam(required = false) Long assigneeId,
+//                                               @RequestParam(required = false) String status,
+//                                               @RequestParam(required = false) Long labelId
+//                                               ) {
+//        List<Task> tasks = taskRepository.findAllByTitleContainingAndAssigneeIdAndStatusAndLabelId(
+//                titleCont, assigneeId, status, labelId);
+//
+//
+//        List<TaskDTO> result =  tasks.stream()
+//                .map(taskMapper::map)
+//                .toList();
+//        return ResponseEntity.ok()
+//                .header("X-Total-Count", String.valueOf(result.size()))
+//                .body(result);
+//    }
 
     @GetMapping
-    public ResponseEntity<List<TaskDTO>> index(@RequestParam(required = false) String titleCont,
-                                               @RequestParam(required = false) Long assigneeId,
-                                               @RequestParam(required = false) String status,
-                                               @RequestParam(required = false) Long labelId
-                                               ) {
-        List<Task> tasks = taskRepository.findAllByTitleContainingAndAssigneeIdAndStatusAndLabelId(
-                titleCont, assigneeId, status, labelId);
-
-
-        List<TaskDTO> result =  tasks.stream()
+    public ResponseEntity<List<TaskDTO>> indexFiltered(TaskParamsDTO params) {
+        var spec = taskSpecification.build(params);
+        var tasks = taskRepository.findAll(spec);
+        var result = tasks.stream()
                 .map(taskMapper::map)
                 .toList();
         return ResponseEntity.ok()

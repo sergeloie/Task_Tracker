@@ -14,10 +14,13 @@ import java.util.List;
 
 
 @Component
+
+
 @AllArgsConstructor(onConstructor_ = @__(@Autowired))
 public class LabelInitializer implements ApplicationRunner {
 
     private final LabelRepository labelRepository;
+
 
     @Override
     public void run(ApplicationArguments args) {
