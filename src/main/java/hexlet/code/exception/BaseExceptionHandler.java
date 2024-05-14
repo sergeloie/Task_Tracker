@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 
 @ResponseBody
 @ControllerAdvice
-//@Order(Ordered.HIGHEST_PRECEDENCE)
+
 public class BaseExceptionHandler {
 
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -36,5 +36,12 @@ public class BaseExceptionHandler {
     @ExceptionHandler(DataAccessException.class)
     public String dataAccessExceptionHandler(DataAccessException exception) {
         return exception.getCause().getCause().getMessage();
+    }
+
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public String resourceNotFoundExceptionHandler(ResourceNotFoundException exception) {
+        return exception.getMessage();
     }
 }

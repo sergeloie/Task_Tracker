@@ -13,6 +13,7 @@ import hexlet.code.specification.TaskSpecification;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,9 +39,9 @@ public class TaskController {
 
     @GetMapping
     public ResponseEntity<List<TaskDTO>> indexFiltered(TaskParamsDTO params) {
-        var spec = taskSpecification.build(params);
-        var tasks = taskRepository.findAll(spec);
-        var result = tasks.stream()
+        Specification<Task> spec = taskSpecification.build(params);
+        List<Task> tasks = taskRepository.findAll(spec);
+        List<TaskDTO> result = tasks.stream()
                 .map(taskMapper::map)
                 .toList();
         return ResponseEntity.ok()

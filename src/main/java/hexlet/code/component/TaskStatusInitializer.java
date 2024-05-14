@@ -40,10 +40,13 @@ public class TaskStatusInitializer implements ApplicationRunner {
         published.setName("Published");
         published.setSlug("published");
 
-        try {
-            taskStatusRepository.saveAll(List.of(draft, toReview, toBeFixed, toPublish, published));
-        } catch (DataIntegrityViolationException e) {
-            Sentry.captureException(e);
+        List<TaskStatus> taskStatuses = List.of(draft, toReview, toBeFixed, toPublish, published);
+        for (TaskStatus taskStatus : taskStatuses) {
+            try {
+                taskStatusRepository.save(taskStatus);
+            } catch (DataIntegrityViolationException e) {
+                Sentry.captureException(e);
+            }
         }
     }
 }
