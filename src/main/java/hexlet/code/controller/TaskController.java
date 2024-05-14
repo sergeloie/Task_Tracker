@@ -36,24 +36,6 @@ public class TaskController {
     private final TaskMapper taskMapper;
     private TaskSpecification taskSpecification;
 
-//    @GetMapping
-//    public ResponseEntity<List<TaskDTO>> index(@RequestParam(required = false) String titleCont,
-//                                               @RequestParam(required = false) Long assigneeId,
-//                                               @RequestParam(required = false) String status,
-//                                               @RequestParam(required = false) Long labelId
-//                                               ) {
-//        List<Task> tasks = taskRepository.findAllByTitleContainingAndAssigneeIdAndStatusAndLabelId(
-//                titleCont, assigneeId, status, labelId);
-//
-//
-//        List<TaskDTO> result =  tasks.stream()
-//                .map(taskMapper::map)
-//                .toList();
-//        return ResponseEntity.ok()
-//                .header("X-Total-Count", String.valueOf(result.size()))
-//                .body(result);
-//    }
-
     @GetMapping
     public ResponseEntity<List<TaskDTO>> indexFiltered(TaskParamsDTO params) {
         var spec = taskSpecification.build(params);
