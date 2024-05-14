@@ -1,6 +1,5 @@
 package hexlet.code.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
@@ -39,13 +38,11 @@ public class Task implements BaseEntity {
     private String description;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "status_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private TaskStatus taskStatus;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
     private User assignee;
 
     @ManyToMany()

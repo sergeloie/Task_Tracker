@@ -37,44 +37,18 @@ public class ReferenceMapper {
 
     @Named("statusToTaskStatus")
     public TaskStatus statusToTaskStatus(String status) {
-//        return entityManager.createQuery("SELECT ts FROM TaskStatus ts WHERE ts.slug = :status", TaskStatus.class)
-//                .setParameter("status", status)
-//                .getSingleResult();
+
         return taskStatusRepository.findTaskStatusBySlug(status)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(String.format("TaskStatus with slug = %s not found", status)));
     }
 
-//    @Named("insertLabelsToTask")
-//    public List<Label> insertLabelsToTask(List<String> names) {
-//        if (names == null || names.isEmpty()) {
-//            return new ArrayList<>();
-//        }
-//
-//        List<Label> labels = new ArrayList<>();
-//        for (String name : names) {
-//            Label label = entityManager.createQuery("SELECT l FROM Label l WHERE l.name = :name", Label.class)
-//                    .setParameter("name", name)
-//                    .getSingleResult();
-//            labels.add(label);
-//        }
-//        return labels;
-//    }
 
     @Named("insertLabelsIdToTask")
     public List<Label> insertLabelsIdToTask(List<Long> labelIds) {
         return labelRepository.findByIdIn(labelIds);
     }
 
-//    @Named("labelsToStrings")
-//    public List<String> labelsToStrings(List<Label> labels) {
-//        List<String> result = new ArrayList<>();
-//        for (Label label : labels) {
-//            String name = label.getName();
-//            result.add(name);
-//        }
-//        return result;
-//    }
 
     @Named("labelsToIds")
     public List<Long> labelsToIds(List<Label> labels) {

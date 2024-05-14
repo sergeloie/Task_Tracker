@@ -30,10 +30,13 @@ public class LabelInitializer implements ApplicationRunner {
         Label bug = new Label();
         bug.setName("bug");
 
-        try {
-            labelRepository.saveAll(List.of(feature, bug));
-        } catch (DataIntegrityViolationException e) {
-            Sentry.captureException(e);
+        var labels = List.of(feature, bug);
+        for (Label label : labels) {
+            try {
+                labelRepository.save(label);
+            } catch (DataIntegrityViolationException e) {
+                Sentry.captureException(e);
+            }
         }
     }
 }
